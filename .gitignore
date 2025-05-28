@@ -1,0 +1,5 @@
+# Ignore the Chromium source directory, as it's managed by gclient
+# and has its own separate Git repository.
+src/
+out/
+.gclient_entries # gclient generated file
