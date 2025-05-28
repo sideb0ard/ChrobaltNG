@@ -1,0 +1,17 @@
+diff --git a/media/BUILD.gn b/media/BUILD.gn
+index ba14ef6f6b070..dcb5645b94c58 100644
+--- a/media/BUILD.gn
++++ b/media/BUILD.gn
+@@ -202,6 +202,12 @@ test("media_unittests") {
+     "//media/webrtc:unit_tests",
+   ]
+ 
++  if (is_cobalt && use_starboard_media) {
++    # TODO(cobalt, b/379934658): add starboard_renderer_test.
++    # TODO(cobalt, b/410073969): add starboard_renderer_client_test.
++    deps += ["//media/starboard:unit_tests"]
++  }
++
+   data = [
+     "test/data/",
+     "formats/mp4/h264_annex_b_fuzz_corpus/",

@@ -1,0 +1,20 @@
+diff --git a/base/run_loop.h b/base/run_loop.h
+index 3da3cc78169cd..0294fccb7a868 100644
+--- a/base/run_loop.h
++++ b/base/run_loop.h
+@@ -286,6 +286,12 @@ class BASE_EXPORT RunLoop {
+   friend class MessagePumpUIApplication;
+ #endif
+ 
++#if BUILDFLAG(IS_STARBOARD)
++  // Starboard doesn't support the blocking RunLoop::Run, so it calls
++  // BeforeRun and AfterRun directly.
++  friend class MessagePumpUIStarboard;
++#endif  // BUILDFLAG(IS_STARBOARD)
++
+   // Support for //base/test/scoped_run_loop_timeout.h.
+   friend class test::ScopedRunLoopTimeout;
+   friend class test::ScopedDisableRunLoopTimeout;
+diff --git a/base/starboard/debugger_starboard.cc b/base/starboard/debugger_starboard.cc
+new file mode 100644
+index 0000000000000..9bf67f6bc00a8

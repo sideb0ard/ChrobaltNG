@@ -1,0 +1,13 @@
+diff --git a/base/allocator/partition_allocator/shim/allocator_shim_internals.h b/base/allocator/partition_allocator/shim/allocator_shim_internals.h
+index 8bddea78c3538..f0140544e4d5d 100644
+--- a/base/allocator/partition_allocator/shim/allocator_shim_internals.h
++++ b/base/allocator/partition_allocator/shim/allocator_shim_internals.h
+@@ -9,7 +9,7 @@
+ 
+ #if defined(__GNUC__)
+ 
+-#if BUILDFLAG(IS_POSIX)
++#if BUILDFLAG(IS_POSIX) && !BUILDFLAG(IS_COBALT_HERMETIC_BUILD)
+ #include <sys/cdefs.h>  // for __THROW
+ #endif
+ 

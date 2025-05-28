@@ -1,0 +1,13 @@
+diff --git a/third_party/blink/renderer/core/html/media/html_media_element.h b/third_party/blink/renderer/core/html/media/html_media_element.h
+index 2612df567fff6..f4b8bafb0a471 100644
+--- a/third_party/blink/renderer/core/html/media/html_media_element.h
++++ b/third_party/blink/renderer/core/html/media/html_media_element.h
+@@ -530,6 +530,8 @@ class CORE_EXPORT HTMLMediaElement
+   void OnFirstFrame(base::TimeTicks frame_time,
+                     size_t bytes_to_first_frame) override {}
+ 
++  int GetElementId() override { return GetDomNodeId(); }
++
+   void SetCcLayer(cc::Layer*) final;
+   WebMediaPlayer::TrackId AddAudioTrack(const WebString&,
+                                         WebMediaPlayerClient::AudioTrackKind,

@@ -1,0 +1,13 @@
+diff --git a/base/allocator/partition_allocator/shim/allocator_shim_default_dispatch_to_partition_alloc.cc b/base/allocator/partition_allocator/shim/allocator_shim_default_dispatch_to_partition_alloc.cc
+index 4f7a87d751569..7ea96f921de93 100644
+--- a/base/allocator/partition_allocator/shim/allocator_shim_default_dispatch_to_partition_alloc.cc
++++ b/base/allocator/partition_allocator/shim/allocator_shim_default_dispatch_to_partition_alloc.cc
+@@ -744,7 +744,7 @@ SHIM_ALWAYS_EXPORT int mallopt(int cmd, int value) __THROW {
+ 
+ #endif  // !BUILDFLAG(IS_APPLE) && !BUILDFLAG(IS_ANDROID)
+ 
+-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
++#if (BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)) && !BUILDFLAG(IS_COBALT_HERMETIC_BUILD)
+ SHIM_ALWAYS_EXPORT struct mallinfo mallinfo(void) __THROW {
+   partition_alloc::SimplePartitionStatsDumper allocator_dumper;
+   Allocator()->DumpStats("malloc", true, &allocator_dumper);

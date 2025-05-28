@@ -1,0 +1,22 @@
+diff --git a/base/allocator/partition_allocator/shim/allocator_shim_default_dispatch_to_partition_alloc_unittest.cc b/base/allocator/partition_allocator/shim/allocator_shim_default_dispatch_to_partition_alloc_unittest.cc
+index 0dcc19c42b22b..89b6493e6a6a7 100644
+--- a/base/allocator/partition_allocator/shim/allocator_shim_default_dispatch_to_partition_alloc_unittest.cc
++++ b/base/allocator/partition_allocator/shim/allocator_shim_default_dispatch_to_partition_alloc_unittest.cc
+@@ -25,7 +25,7 @@ namespace allocator_shim::internal {
+ #if BUILDFLAG(USE_PARTITION_ALLOC_AS_MALLOC)
+ 
+ // Platforms on which we override weak libc symbols.
+-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
++#if BUILDFLAG(IS_LINUX) && !BUILDFLAG(IS_STARBOARD) || BUILDFLAG(IS_CHROMEOS)
+ 
+ PA_NOINLINE void FreeForTest(void* data) {
+   free(data);
+@@ -85,7 +85,7 @@ TEST(PartitionAllocAsMalloc, Mallinfo) {
+ #endif
+ }
+ 
+-#endif  // BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
++#endif  // BUILDFLAG(IS_LINUX) && !BUILDFLAG(IS_STARBOARD) || BUILDFLAG(IS_CHROMEOS)
+ 
+ #endif  // BUILDFLAG(USE_PARTITION_ALLOC_AS_MALLOC)
+ 

@@ -1,0 +1,15 @@
+diff --git a/media/base/media_switches.h b/media/base/media_switches.h
+index 43265d6c016d1..749eb6e4aff56 100644
+--- a/media/base/media_switches.h
++++ b/media/base/media_switches.h
+@@ -176,6 +176,10 @@ MEDIA_EXPORT BASE_DECLARE_FEATURE(kDecreaseProcessingAudioFifoSize);
+ MEDIA_EXPORT extern const base::FeatureParam<int>
+     kDecreaseProcessingAudioFifoSizeValue;
+ #endif
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++MEDIA_EXPORT BASE_DECLARE_FEATURE(kCobaltDecoderBufferAllocatorWithInPlaceMetadata);
++MEDIA_EXPORT BASE_DECLARE_FEATURE(kCobaltProgressivePlayback);
++#endif  // BUILDFLAG(USE_STARBOARD_MEDIA)
+ #if BUILDFLAG(IS_CHROMEOS)
+ MEDIA_EXPORT BASE_DECLARE_FEATURE(kCrOSSystemAEC);
+ MEDIA_EXPORT BASE_DECLARE_FEATURE(kCrOSSystemAECDeactivatedGroups);

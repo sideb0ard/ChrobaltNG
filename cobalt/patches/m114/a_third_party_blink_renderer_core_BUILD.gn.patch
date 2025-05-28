@@ -1,0 +1,48 @@
+diff --git a/third_party/blink/renderer/core/BUILD.gn b/third_party/blink/renderer/core/BUILD.gn
+index cf57dd8868747..393733f9fe7f0 100644
+--- a/third_party/blink/renderer/core/BUILD.gn
++++ b/third_party/blink/renderer/core/BUILD.gn
+@@ -80,6 +80,10 @@ import("//third_party/protobuf/proto_library.gni")
+ if (is_ios) {
+   import("//build/config/ios/bundle_data_from_filelist.gni")
+ }
++if (is_cobalt) {
++  import("//starboard/build/buildflags.gni")
++  import("//third_party/blink/renderer/core/cobalt/build.gni")
++}
+ 
+ visibility = [
+   "//third_party/blink/public/*",
+@@ -301,6 +305,10 @@ component("core") {
+       rebase_path(blink_core_sources_xmlhttprequest, "", "xmlhttprequest")
+   sources += rebase_path(blink_core_sources_speech, "", "speech")
+ 
++  if (is_cobalt) {
++    sources += rebase_path(blink_core_sources_cobalt, "", "cobalt")
++  }
++
+   configs -= core_config_remove
+   configs += core_config_add
+   configs += [ "//v8:external_startup_data" ]
+@@ -396,6 +404,10 @@ component("core") {
+       "Carbon.framework",
+     ]
+   }
++
++  if (is_cobalt && use_starboard_media) {
++    deps += [ "//starboard:starboard_group" ]
++  }
+ }
+ 
+ # Certain sources should be compiled with heavy optimization enabled.
+@@ -1407,6 +1419,10 @@ source_set("unit_tests") {
+   sources += rebase_path(blink_core_tests_workers, "", "workers")
+   sources += rebase_path(blink_core_tests_xml, "", "xml")
+   sources += rebase_path(blink_core_tests_xmlhttprequest, "", "xmlhttprequest")
++  
++  if (is_cobalt){ 
++    sources += rebase_path(blink_core_tests_cobalt, "", "cobalt")
++  }
+ 
+   configs += [
+     ":blink_core_pch",

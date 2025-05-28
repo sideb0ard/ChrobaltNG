@@ -1,0 +1,39 @@
+diff --git a/content/public/renderer/content_renderer_client.h b/content/public/renderer/content_renderer_client.h
+index 77f2c4fbf8c88..1b27b48369d71 100644
+--- a/content/public/renderer/content_renderer_client.h
++++ b/content/public/renderer/content_renderer_client.h
+@@ -34,6 +34,10 @@
+ #include "ui/base/page_transition_types.h"
+ #include "v8/include/v8-forward.h"
+ 
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++#include "media/base/starboard/renderer_factory_traits.h"
++#endif // BUILDFLAG(USE_STARBOARD_MEDIA)
++
+ #if !BUILDFLAG(IS_ANDROID)
+ #include "media/base/speech_recognition_client.h"
+ #endif
+@@ -421,7 +425,8 @@ class CONTENT_EXPORT ContentRendererClient {
+       media::MediaLog* media_log,
+       media::DecoderFactory* decoder_factory,
+       base::RepeatingCallback<media::GpuVideoAcceleratorFactories*()>
+-          get_gpu_factories_cb);
++          get_gpu_factories_cb,
++      int element_id);
+ 
+ #if BUILDFLAG(ENABLE_CAST_RECEIVER)
+   // Creates a new cast_streaming::ResourceProvider. Will only be called once
+@@ -429,6 +434,13 @@ class CONTENT_EXPORT ContentRendererClient {
+   virtual std::unique_ptr<cast_streaming::ResourceProvider>
+   CreateCastStreamingResourceProvider();
+ #endif
++
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++  // This is used for StarboardRenderer to acquire customizations
++  // as MojoRenderer from cobalt_content_renderer_client.cc.
++  virtual void GetStarboardRendererFactoryTraits(
++      media::RendererFactoryTraits* renderer_factory_traits);
++#endif // BUILDFLAG(USE_STARBOARD_MEDIA)
+ };
+ 
+ }  // namespace content

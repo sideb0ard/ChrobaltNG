@@ -1,0 +1,15 @@
+diff --git a/base/task/sequence_manager/thread_controller_with_message_pump_impl.cc b/base/task/sequence_manager/thread_controller_with_message_pump_impl.cc
+index 7e027675a9604..833ed797bad79 100644
+--- a/base/task/sequence_manager/thread_controller_with_message_pump_impl.cc
++++ b/base/task/sequence_manager/thread_controller_with_message_pump_impl.cc
+@@ -738,6 +738,10 @@ void ThreadControllerWithMessagePumpImpl::AttachToMessagePump() {
+   main_thread_only().can_change_batch_size = false;
+   static_cast<MessagePumpForUI*>(pump_.get())->Attach(this);
+ }
++#elif BUILDFLAG(IS_STARBOARD)
++void ThreadControllerWithMessagePumpImpl::AttachToMessagePump() {
++  static_cast<MessagePumpForUI*>(pump_.get())->Attach(this);
++}
+ #endif
+ 
+ bool ThreadControllerWithMessagePumpImpl::ShouldQuitRunLoopWhenIdle() {

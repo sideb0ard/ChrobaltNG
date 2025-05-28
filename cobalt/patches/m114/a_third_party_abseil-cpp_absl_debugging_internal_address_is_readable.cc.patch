@@ -1,0 +1,15 @@
+diff --git a/third_party/abseil-cpp/absl/debugging/internal/address_is_readable.cc b/third_party/abseil-cpp/absl/debugging/internal/address_is_readable.cc
+index 91eaa76f8a6c8..b4543709490ee 100644
+--- a/third_party/abseil-cpp/absl/debugging/internal/address_is_readable.cc
++++ b/third_party/abseil-cpp/absl/debugging/internal/address_is_readable.cc
+@@ -16,8 +16,9 @@
+ // without faulting.
+ 
+ #include "absl/debugging/internal/address_is_readable.h"
++#include "build/build_config.h"
+ 
+-#if !defined(__linux__) || defined(__ANDROID__)
++#if !defined(__linux__) || defined(__ANDROID__) || BUILDFLAG(IS_COBALT_HERMETIC_BUILD)
+ 
+ namespace absl {
+ ABSL_NAMESPACE_BEGIN

@@ -1,0 +1,13 @@
+diff --git a/net/dns/host_resolver_manager_unittest.cc b/net/dns/host_resolver_manager_unittest.cc
+index 5a8eb510faea9..57160ed917b77 100644
+--- a/net/dns/host_resolver_manager_unittest.cc
++++ b/net/dns/host_resolver_manager_unittest.cc
+@@ -8378,7 +8378,7 @@ class TestDnsObserver : public NetworkChangeNotifier::DNSObserver {
+ };
+ 
+ // Built-in client and config overrides not available on iOS.
+-#if !BUILDFLAG(IS_IOS)
++#if !BUILDFLAG(IS_IOS) && !BUILDFLAG(IS_STARBOARD)
+ TEST_F(HostResolverManagerDnsTest, SetDnsConfigOverrides) {
+   test::ScopedMockNetworkChangeNotifier mock_network_change_notifier;
+   TestDnsObserver config_observer;

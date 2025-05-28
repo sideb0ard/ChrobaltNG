@@ -1,0 +1,13 @@
+diff --git a/build/android/gyp/util/resource_utils.py b/build/android/gyp/util/resource_utils.py
+index dac0ae7588beb..2bdd5964fce17 100644
+--- a/build/android/gyp/util/resource_utils.py
++++ b/build/android/gyp/util/resource_utils.py
+@@ -46,7 +46,7 @@ ALL_RESOURCE_TYPES = {
+     'anim', 'animator', 'array', 'attr', 'bool', 'color', 'dimen', 'drawable',
+     'font', 'fraction', 'id', 'integer', 'interpolator', 'layout', 'macro',
+     'menu', 'mipmap', 'plurals', 'raw', 'string', 'style', 'styleable',
+-    'transition', 'xml'
++    'transition', 'xml', 'overlayable'
+ }
+ 
+ AAPT_IGNORE_PATTERN = ':'.join([

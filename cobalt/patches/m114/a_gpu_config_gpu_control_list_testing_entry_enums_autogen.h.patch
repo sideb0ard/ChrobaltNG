@@ -1,0 +1,12 @@
+diff --git a/gpu/config/gpu_control_list_testing_entry_enums_autogen.h b/gpu/config/gpu_control_list_testing_entry_enums_autogen.h
+index c4c35b27de2db..d7f0251e0cde6 100644
+--- a/gpu/config/gpu_control_list_testing_entry_enums_autogen.h
++++ b/gpu/config/gpu_control_list_testing_entry_enums_autogen.h
+@@ -93,6 +93,7 @@ enum GpuControlListTestingEntryEnum {
+   kGpuControlListEntryTest_DeviceRevisionUnspecifiedEntry = 77,
+   kGpuControlListEntryTest_AnyDriverVersion = 78,
+   kGpuControlListEntryTest_ActiveDriverVersion = 79,
++  kGpuControlListEntryTest_NativeAngleRenderer = 80,
+ };
+ }  // namespace gpu
+ 

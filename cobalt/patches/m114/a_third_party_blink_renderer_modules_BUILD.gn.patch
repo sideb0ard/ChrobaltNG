@@ -1,0 +1,38 @@
+diff --git a/third_party/blink/renderer/modules/BUILD.gn b/third_party/blink/renderer/modules/BUILD.gn
+index 855d33552a2db..5a98953ba09ef 100644
+--- a/third_party/blink/renderer/modules/BUILD.gn
++++ b/third_party/blink/renderer/modules/BUILD.gn
+@@ -167,6 +167,18 @@ component("modules") {
+     "//third_party/blink/renderer/modules/xr",
+   ]
+ 
++  if (is_cobalt) {
++    sub_modules += [
++      "//third_party/blink/renderer/modules/cobalt:h_5_vcc",
++      "//third_party/blink/renderer/modules/cobalt/crash_log",
++      "//third_party/blink/renderer/modules/cobalt/h5vcc_accessibility",
++      "//third_party/blink/renderer/modules/cobalt/h5vcc_experiments",
++      "//third_party/blink/renderer/modules/cobalt/h5vcc_metrics",
++      "//third_party/blink/renderer/modules/cobalt/h5vcc_system",
++      "//third_party/blink/renderer/modules/cobalt/h5vcc_runtime",
++    ]
++  }
++
+   # This uses target_os rather than current_os (which is what is_android is set
+   # from) for the case of generating the v8 context snapshot for android. When
+   # generating the snapshot for android, blink is compiled with
+@@ -357,6 +369,14 @@ generate_event_interfaces("modules_event_interfaces") {
+     "xr/xr_session_event.idl",
+   ]
+ 
++  if (is_cobalt) {
++    sources += [
++      "cobalt/h5vcc_metrics/metrics_event.idl",
++      "cobalt/h5vcc_runtime/deep_link_event.idl",
++      "cobalt/h5vcc_system/h_5_vcc_system.idl",
++    ]
++  }
++
+   output_file = "modules/event_interface_modules_names.json5"
+   suffix = "Modules"
+ }

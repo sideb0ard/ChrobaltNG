@@ -1,0 +1,19 @@
+diff --git a/infra/config/subprojects/chromium/ci/chromium.chromiumos.star b/infra/config/subprojects/chromium/ci/chromium.chromiumos.star
+index 2eab947768664..1047eeb7e25a7 100644
+--- a/infra/config/subprojects/chromium/ci/chromium.chromiumos.star
++++ b/infra/config/subprojects/chromium/ci/chromium.chromiumos.star
+@@ -268,13 +268,7 @@ ci.builder(
+     builder_spec = builder_config.builder_spec(
+         gclient_config = builder_config.gclient_config(
+             config = "chromium",
+-            apply_configs = [
+-                "chromeos",
+-                # This is necessary due to a child builder running the
+-                # telemetry_perf_unittests suite.
+-                "chromium_with_telemetry_dependencies",
+-                "checkout_lacros_sdk",
+-            ],
++            apply_configs = ["chromeos", "checkout_lacros_sdk"],
+         ),
+         chromium_config = builder_config.chromium_config(
+             config = "chromium",

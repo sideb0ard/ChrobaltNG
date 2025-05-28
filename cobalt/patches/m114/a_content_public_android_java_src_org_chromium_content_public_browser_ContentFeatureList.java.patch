@@ -1,0 +1,13 @@
+diff --git a/content/public/android/java/src/org/chromium/content_public/browser/ContentFeatureList.java b/content/public/android/java/src/org/chromium/content_public/browser/ContentFeatureList.java
+index 23bed63d4b76d..d52fb98ac3d88 100644
+--- a/content/public/android/java/src/org/chromium/content_public/browser/ContentFeatureList.java
++++ b/content/public/android/java/src/org/chromium/content_public/browser/ContentFeatureList.java
+@@ -73,6 +73,8 @@ public class ContentFeatureList {
+     public static final String BACKGROUND_MEDIA_RENDERER_HAS_MODERATE_BINDING =
+             "BackgroundMediaRendererHasModerateBinding";
+ 
++    public static final String DO_NOT_GENERATE_CHROMIUM_A11Y_TREE = "DoNotGenerateChromiumA11yTree";
++
+     public static final String ON_DEMAND_ACCESSIBILITY_EVENTS = "OnDemandAccessibilityEvents";
+ 
+     public static final String OPTIMIZE_IMM_HIDE_CALLS = "OptimizeImmHideCalls";

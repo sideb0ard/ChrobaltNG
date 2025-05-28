@@ -1,0 +1,13 @@
+diff --git a/components/exo/wayland/test/test_wayland_client_thread.cc b/components/exo/wayland/test/test_wayland_client_thread.cc
+index 3bea9210b9bb6..a374984e690cf 100644
+--- a/components/exo/wayland/test/test_wayland_client_thread.cc
++++ b/components/exo/wayland/test/test_wayland_client_thread.cc
+@@ -84,7 +84,7 @@ void TestWaylandClientThread::DoInit(
+ 
+   const bool result = base::CurrentIOThread::Get().WatchFileDescriptor(
+       wl_display_get_fd(client_->display()), /*persistent=*/true,
+-      base::MessagePumpLibevent::WATCH_READ, &controller_, this);
++      base::MessagePumpEpoll::WATCH_READ, &controller_, this);
+ 
+   if (!result)
+     client_.reset();

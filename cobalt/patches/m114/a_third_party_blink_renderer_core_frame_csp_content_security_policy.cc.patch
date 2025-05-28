@@ -1,0 +1,26 @@
+diff --git a/third_party/blink/renderer/core/frame/csp/content_security_policy.cc b/third_party/blink/renderer/core/frame/csp/content_security_policy.cc
+index 7a9c5d3d6da5b..6945572e2bccd 100644
+--- a/third_party/blink/renderer/core/frame/csp/content_security_policy.cc
++++ b/third_party/blink/renderer/core/frame/csp/content_security_policy.cc
+@@ -1391,6 +1391,10 @@ const char* ContentSecurityPolicy::GetDirectiveName(CSPDirectiveName type) {
+       return "upgrade-insecure-requests";
+     case CSPDirectiveName::WorkerSrc:
+       return "worker-src";
++#if BUILDFLAG(IS_COBALT)
++    case CSPDirectiveName::CobaltLocationSrc:
++      return "h5vcc-location-src";
++#endif
+ 
+     case CSPDirectiveName::Unknown:
+       NOTREACHED();
+@@ -1460,6 +1464,10 @@ CSPDirectiveName ContentSecurityPolicy::GetDirectiveType(const String& name) {
+     return CSPDirectiveName::UpgradeInsecureRequests;
+   if (name == "worker-src")
+     return CSPDirectiveName::WorkerSrc;
++#if BUILDFLAG(IS_COBALT)
++  if (name == "h5vcc-location-src" || name == "cobalt-location-src")
++    return CSPDirectiveName::CobaltLocationSrc;
++#endif
+ 
+   return CSPDirectiveName::Unknown;
+ }

@@ -1,0 +1,42 @@
+diff --git a/third_party/rust/clap/v4/BUILD.gn b/third_party/rust/clap/v4/BUILD.gn
+index ba20c963c8c4c..037f114a1e386 100644
+--- a/third_party/rust/clap/v4/BUILD.gn
++++ b/third_party/rust/clap/v4/BUILD.gn
+@@ -21,14 +21,11 @@ cargo_crate("stdio_fixture") {
+   executable_configs += [ "//build/config/compiler:no_chromium_code" ]
+   deps = [
+     ":lib",
+-    "//third_party/rust/atty/v0_2:lib",
+     "//third_party/rust/bitflags/v1:lib",
+     "//third_party/rust/clap_lex/v0_3:lib",
+     "//third_party/rust/strsim/v0_10:lib",
+-    "//third_party/rust/termcolor/v1:lib",
+   ]
+   features = [
+-    "color",
+     "error-context",
+     "help",
+     "std",
+@@ -58,14 +55,11 @@ cargo_crate("lib") {
+   executable_configs -= [ "//build/config/compiler:chromium_code" ]
+   executable_configs += [ "//build/config/compiler:no_chromium_code" ]
+   deps = [
+-    "//third_party/rust/atty/v0_2:lib",
+     "//third_party/rust/bitflags/v1:lib",
+     "//third_party/rust/clap_lex/v0_3:lib",
+     "//third_party/rust/strsim/v0_10:lib",
+-    "//third_party/rust/termcolor/v1:lib",
+   ]
+   features = [
+-    "color",
+     "error-context",
+     "help",
+     "std",
+@@ -73,7 +67,3 @@ cargo_crate("lib") {
+     "usage",
+   ]
+ }
+-group("test_support") {
+-  public_deps = [ ":lib" ]
+-  testonly = true
+-}

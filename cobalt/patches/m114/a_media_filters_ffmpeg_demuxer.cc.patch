@@ -1,0 +1,13 @@
+diff --git a/media/filters/ffmpeg_demuxer.cc b/media/filters/ffmpeg_demuxer.cc
+index d5ab57b0b41bc..d6927dfa8185a 100644
+--- a/media/filters/ffmpeg_demuxer.cc
++++ b/media/filters/ffmpeg_demuxer.cc
+@@ -881,7 +881,7 @@ bool FFmpegDemuxerStream::HasAvailableCapacity() {
+ }
+ 
+ size_t FFmpegDemuxerStream::MemoryUsage() const {
+-  return buffer_queue_.data_size();
++  return buffer_queue_.memory_usage_in_bytes();
+ }
+ 
+ std::string FFmpegDemuxerStream::GetMetadata(const char* key) const {

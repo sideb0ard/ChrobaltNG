@@ -1,0 +1,14 @@
+diff --git a/media/filters/demuxer_manager.h b/media/filters/demuxer_manager.h
+index 435bce8989bf6..63bed5a5bce72 100644
+--- a/media/filters/demuxer_manager.h
++++ b/media/filters/demuxer_manager.h
+@@ -173,6 +173,9 @@ class MEDIA_EXPORT DemuxerManager {
+ 
+ #if BUILDFLAG(ENABLE_FFMPEG)
+   std::unique_ptr<media::Demuxer> CreateFFmpegDemuxer();
++#elif BUILDFLAG(USE_STARBOARD_MEDIA)
++  std::unique_ptr<media::Demuxer> CreateDemuxerExtensionWrapper();
++  std::unique_ptr<media::Demuxer> CreateProgressiveDemuxer();
+ #endif  // BUILDFLAG(ENABLE_FFMPEG)
+ 
+ #if BUILDFLAG(ENABLE_HLS_DEMUXER)

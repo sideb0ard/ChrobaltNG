@@ -1,0 +1,5 @@
+--- /dev/null
++++ b/third_party/.gitattributes
+@@ -0,0 +1,2 @@
++*.cpp -text
++*.txt -text

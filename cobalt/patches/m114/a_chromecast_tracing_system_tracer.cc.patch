@@ -1,0 +1,12 @@
+diff --git a/chromecast/tracing/system_tracer.cc b/chromecast/tracing/system_tracer.cc
+index 3faa74d1c0cca..413a19303fe74 100644
+--- a/chromecast/tracing/system_tracer.cc
++++ b/chromecast/tracing/system_tracer.cc
+@@ -12,7 +12,6 @@
+ #include "base/functional/bind.h"
+ #include "base/functional/callback_helpers.h"
+ #include "base/logging.h"
+-#include "base/message_loop/message_pump_libevent.h"
+ #include "base/posix/eintr_wrapper.h"
+ #include "base/posix/unix_domain_socket.h"
+ #include "base/trace_event/trace_config.h"

@@ -1,0 +1,12 @@
+diff --git a/tools/resources/find_unused_assets.py b/tools/resources/find_unused_assets.py
+index 7e860bb5cb58c..91f1f7f33aa2e 100755
+--- a/tools/resources/find_unused_assets.py
++++ b/tools/resources/find_unused_assets.py
+@@ -55,7 +55,6 @@ IGNORED_PATHSPECS = [
+     ':!testing/**',
+     ':!third_party/**',
+     ':!tools/perf/page_sets/**',
+-    ':!tools/stats_viewer/**',
+ ]
+ 
+ logger = logging.getLogger(__name__)

@@ -1,0 +1,16 @@
+diff --git a/third_party/blink/renderer/core/workers/cross_thread_global_scope_creation_params_copier.cc b/third_party/blink/renderer/core/workers/cross_thread_global_scope_creation_params_copier.cc
+index 56b5f1a3e1f69..a5559fed20ace 100644
+--- a/third_party/blink/renderer/core/workers/cross_thread_global_scope_creation_params_copier.cc
++++ b/third_party/blink/renderer/core/workers/cross_thread_global_scope_creation_params_copier.cc
+@@ -57,7 +57,11 @@ network::mojom::blink::CSPSourceListPtr CSPSourceListIsolatedCopy(
+       in->allow_response_redirects, in->allow_inline,
+       in->allow_inline_speculation_rules, in->allow_eval, in->allow_wasm_eval,
+       in->allow_wasm_unsafe_eval, in->allow_dynamic, in->allow_unsafe_hashes,
++#if BUILDFLAG(IS_COBALT)
++      in->report_sample, in->cobalt_insecure_local_network);
++#else
+       in->report_sample);
++#endif
+ }
+ 
+ HashMap<network::mojom::blink::CSPDirectiveName,

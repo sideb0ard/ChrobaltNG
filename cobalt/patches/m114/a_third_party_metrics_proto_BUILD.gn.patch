@@ -1,0 +1,17 @@
+diff --git a/third_party/metrics_proto/BUILD.gn b/third_party/metrics_proto/BUILD.gn
+index c34a6fbdd466e..10d52cf6f1bbf 100644
+--- a/third_party/metrics_proto/BUILD.gn
++++ b/third_party/metrics_proto/BUILD.gn
+@@ -39,6 +39,9 @@ _proto_files = [
+ 
+ proto_library("metrics_proto") {
+   sources = _proto_files
++  if (is_cobalt) {
++    sources += ["cobalt_uma_event.proto"]
++  }
+   proto_in_dir = "."
+ }
+ 
+diff --git a/third_party/metrics_proto/cobalt_uma_event.proto b/third_party/metrics_proto/cobalt_uma_event.proto
+new file mode 100644
+index 0000000000000..720d4a8af88b9

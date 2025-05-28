@@ -1,0 +1,22 @@
+diff --git a/media/base/media_switches.cc b/media/base/media_switches.cc
+index b8f748b183652..a961a2cb44047 100644
+--- a/media/base/media_switches.cc
++++ b/media/base/media_switches.cc
+@@ -481,6 +481,17 @@ const base::FeatureParam<int> kDecreaseProcessingAudioFifoSizeValue{
+ 
+ #endif
+ 
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++// When enabled, Cobalt stores allocation meta data in place for DecoderBuffers.
++BASE_FEATURE(kCobaltDecoderBufferAllocatorWithInPlaceMetadata,
++             "CobaltDecoderBufferAllocatorWithInPlaceMetadata",
++             base::FEATURE_DISABLED_BY_DEFAULT);
++// When disabled, Cobalt rejects progressive video formats.
++BASE_FEATURE(kCobaltProgressivePlayback,
++             "CobaltProgressivePlayback",
++             base::FEATURE_DISABLED_BY_DEFAULT);
++#endif  // BUILDFLAG(USE_STARBOARD_MEDIA)
++
+ #if BUILDFLAG(IS_CHROMEOS)
+ // To control running audio communication effect on Chrome OS Audio Server.
+ BASE_FEATURE(kCrOSSystemAEC,

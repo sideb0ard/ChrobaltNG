@@ -1,0 +1,17 @@
+diff --git a/base/message_loop/fd_watch_controller_posix_unittest.cc b/base/message_loop/fd_watch_controller_posix_unittest.cc
+index 87fdb1652d2a4..ec1651df8b0a8 100644
+--- a/base/message_loop/fd_watch_controller_posix_unittest.cc
++++ b/base/message_loop/fd_watch_controller_posix_unittest.cc
+@@ -103,9 +103,9 @@ class CallClosureHandler : public MessagePumpForIO::FdWatcher {
+ 
+   // base::WatchableIOMessagePumpPosix::FdWatcher:
+   void OnFileCanReadWithoutBlocking(int fd) override {
+-    // Empty the pipe buffer to reset the event. Otherwise libevent
+-    // implementation of MessageLoop may call the event handler again even if
+-    // |read_closure_| below quits the RunLoop.
++    // Empty the pipe buffer to reset the event. Otherwise MessagePumpEpoll
++    // call the event handler again even if |read_closure_| below quits the
++    // RunLoop.
+     char c;
+     int result = HANDLE_EINTR(read(fd, &c, 1));
+     if (result == -1) {

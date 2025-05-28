@@ -1,0 +1,39 @@
+diff --git a/media/mojo/services/test_mojo_media_client.cc b/media/mojo/services/test_mojo_media_client.cc
+index 207e650160588..31a731411f474 100644
+--- a/media/mojo/services/test_mojo_media_client.cc
++++ b/media/mojo/services/test_mojo_media_client.cc
+@@ -23,6 +23,10 @@
+ #include "media/renderers/default_decoder_factory.h"
+ #include "media/renderers/renderer_impl_factory.h"
+ 
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++#include "media/mojo/services/mojo_media_log.h"
++#endif  // BUILDFLAG(USE_STARBOARD_MEDIA)
++
+ namespace media {
+ 
+ TestMojoMediaClient::TestMojoMediaClient() = default;
+@@ -103,6 +107,23 @@ std::unique_ptr<Renderer> TestMojoMediaClient::CreateCastRenderer(
+ }
+ #endif  // BUILDFLAG(ENABLE_CAST_RENDERER)
+ 
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++std::unique_ptr<Renderer> TestMojoMediaClient::CreateStarboardRenderer(
++    mojom::FrameInterfaceFactory* frame_interfaces,
++    scoped_refptr<base::SingleThreadTaskRunner> task_runner,
++    mojo::PendingRemote<mojom::MediaLog> media_log_remote,
++    const StarboardRendererConfig& config,
++    mojo::PendingReceiver<mojom::StarboardRendererExtension>
++        renderer_extension_receiver,
++    mojo::PendingRemote<mojom::StarboardRendererClientExtension>
++        client_extension_remote) {
++  std::unique_ptr<MediaLog> media_log =
++      std::make_unique<MojoMediaLog>(std::move(media_log_remote), task_runner);
++  return CreateRenderer(frame_interfaces, task_runner, media_log.get(),
++                        std::string());
++}
++#endif  // BUILDFLAG(USE_STARBOARD_MEDIA)
++
+ std::unique_ptr<CdmFactory> TestMojoMediaClient::CreateCdmFactory(
+     mojom::FrameInterfaceFactory* /* frame_interfaces */) {
+   DVLOG(1) << __func__;

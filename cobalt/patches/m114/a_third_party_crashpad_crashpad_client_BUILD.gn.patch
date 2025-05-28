@@ -1,0 +1,40 @@
+diff --git a/third_party/crashpad/crashpad/client/BUILD.gn b/third_party/crashpad/crashpad/client/BUILD.gn
+index 5c71dcc91adc1..c6a03c082f4a1 100644
+--- a/third_party/crashpad/crashpad/client/BUILD.gn
++++ b/third_party/crashpad/crashpad/client/BUILD.gn
+@@ -13,6 +13,7 @@
+ # limitations under the License.
+ 
+ import("../build/crashpad_buildconfig.gni")
++import("//cobalt/build/configs/hacks.gni")
+ 
+ crashpad_static_library("client") {
+   sources = [
+@@ -71,6 +72,13 @@ crashpad_static_library("client") {
+     sources += [ "crashpad_client_fuchsia.cc" ]
+   }
+ 
++  if (enable_cobalt_hermetic_hacks) {
++    sources += [
++      "cobalt/crashpad_client_hermetic_stub.cc",
++      "cobalt/simulate_crash_hermetic_stub.h",
++    ]
++  }
++
+   public_configs = [ "..:crashpad_config" ]
+ 
+   public_deps = [
+@@ -140,6 +148,10 @@ static_library("common") {
+     ]
+   }
+ 
++  if (enable_cobalt_hermetic_hacks) {
++    sources += [ "cobalt/crash_report_database_hermetic_stub.cc" ]
++  }
++
+   public_configs = [ "..:crashpad_config" ]
+   public_deps = [
+     "$mini_chromium_source_parent:base",
+diff --git a/third_party/crashpad/crashpad/client/cobalt/crash_report_database_hermetic_stub.cc b/third_party/crashpad/crashpad/client/cobalt/crash_report_database_hermetic_stub.cc
+new file mode 100644
+index 0000000000000..f8ad18391f3ed

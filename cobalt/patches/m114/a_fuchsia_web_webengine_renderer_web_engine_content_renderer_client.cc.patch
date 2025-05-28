@@ -1,0 +1,14 @@
+diff --git a/fuchsia_web/webengine/renderer/web_engine_content_renderer_client.cc b/fuchsia_web/webengine/renderer/web_engine_content_renderer_client.cc
+index baf5a76ec5429..48e147f4a4c9a 100644
+--- a/fuchsia_web/webengine/renderer/web_engine_content_renderer_client.cc
++++ b/fuchsia_web/webengine/renderer/web_engine_content_renderer_client.cc
+@@ -326,7 +326,8 @@ WebEngineContentRendererClient::GetBaseRendererFactory(
+     media::MediaLog* media_log,
+     media::DecoderFactory* decoder_factory,
+     base::RepeatingCallback<media::GpuVideoAcceleratorFactories*()>
+-        get_gpu_factories_cb) {
++        get_gpu_factories_cb,
++    int element_id) {
+   auto* interface_broker = render_frame->GetBrowserInterfaceBroker();
+ 
+   mojo::Remote<mojom::WebEngineMediaResourceProvider> media_resource_provider;

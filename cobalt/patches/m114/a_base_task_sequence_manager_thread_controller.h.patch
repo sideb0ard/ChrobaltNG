@@ -1,0 +1,13 @@
+diff --git a/base/task/sequence_manager/thread_controller.h b/base/task/sequence_manager/thread_controller.h
+index 138bdcdda77ad..78ea23015ec28 100644
+--- a/base/task/sequence_manager/thread_controller.h
++++ b/base/task/sequence_manager/thread_controller.h
+@@ -132,7 +132,7 @@ class BASE_EXPORT ThreadController {
+   // Returns true if the current run loop should quit when idle.
+   virtual bool ShouldQuitRunLoopWhenIdle() = 0;
+ 
+-#if BUILDFLAG(IS_IOS) || BUILDFLAG(IS_ANDROID)
++#if BUILDFLAG(IS_IOS) || BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_STARBOARD)
+   // On iOS, the main message loop cannot be Run().  Instead call
+   // AttachToMessagePump(), which connects this ThreadController to the
+   // UI thread's CFRunLoop and allows PostTask() to work.

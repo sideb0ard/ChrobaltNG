@@ -1,0 +1,14 @@
+diff --git a/content/zygote/zygote_main_linux.cc b/content/zygote/zygote_main_linux.cc
+index c7ee91878e6dd..206e47e2e0159 100644
+--- a/content/zygote/zygote_main_linux.cc
++++ b/content/zygote/zygote_main_linux.cc
+@@ -141,7 +141,8 @@ static void EnterLayerOneSandbox(sandbox::policy::SandboxLinux* linux_sandbox,
+ // Check that the pre-sandbox initialization didn't spawn threads.
+ // It's not just our code which may do so - some system-installed libraries
+ // are known to be culprits, e.g. lttng.
+-#if !defined(THREAD_SANITIZER)
++// TODO: (cobalt b/393131403) Investigate clean way to turn off Zygote support.
++#if !defined(THREAD_SANITIZER) && !BUILDFLAG(IS_STARBOARD)
+   CHECK(sandbox::ThreadHelpers::IsSingleThreaded());
+ #endif
+ 

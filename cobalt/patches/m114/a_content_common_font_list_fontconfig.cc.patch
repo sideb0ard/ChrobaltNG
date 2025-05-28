@@ -1,0 +1,18 @@
+diff --git a/content/common/font_list_fontconfig.cc b/content/common/font_list_fontconfig.cc
+index d02178493103e..2064321da805c 100644
+--- a/content/common/font_list_fontconfig.cc
++++ b/content/common/font_list_fontconfig.cc
+@@ -29,8 +29,13 @@ base::Value::List GetFontList_SlowBlocking() {
+ 
+   base::Value::List font_list;
+ 
++#if BUILDFLAG(IS_STARBOARD)
++  std::unique_ptr<FcObjectSet, decltype(&FcObjectSetDestroy)> object_set(
++      FcObjectSetBuild(FC_FAMILY, nullptr), FcObjectSetDestroy);
++#else
+   std::unique_ptr<FcObjectSet, decltype(&FcObjectSetDestroy)> object_set(
+       FcObjectSetBuild(FC_FAMILY, NULL), FcObjectSetDestroy);
++#endif
+ 
+   std::set<std::string> sorted_families;
+ 

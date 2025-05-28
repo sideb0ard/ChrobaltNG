@@ -1,0 +1,22 @@
+diff --git a/base/threading/platform_thread_posix.cc b/base/threading/platform_thread_posix.cc
+index 6743b440207cf..375ff40445496 100644
+--- a/base/threading/platform_thread_posix.cc
++++ b/base/threading/platform_thread_posix.cc
+@@ -353,7 +353,7 @@ void PlatformThread::Detach(PlatformThreadHandle thread_handle) {
+ 
+ // static
+ bool PlatformThread::CanChangeThreadType(ThreadType from, ThreadType to) {
+-#if BUILDFLAG(IS_NACL)
++#if BUILDFLAG(IS_NACL) || BUILDFLAG(IS_COBALT_HERMETIC_BUILD)
+   return false;
+ #else
+   if (from >= to) {
+@@ -365,7 +365,7 @@ bool PlatformThread::CanChangeThreadType(ThreadType from, ThreadType to) {
+   }
+ 
+   return internal::CanLowerNiceTo(internal::ThreadTypeToNiceValue(to));
+-#endif  // BUILDFLAG(IS_NACL)
++#endif  // BUILDFLAG(IS_NACL) || BUILDFLAG(IS_COBALT_HERMETIC_BUILD)
+ }
+ 
+ namespace internal {

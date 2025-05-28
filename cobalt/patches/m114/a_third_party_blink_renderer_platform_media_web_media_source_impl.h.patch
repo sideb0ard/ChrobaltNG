@@ -1,0 +1,16 @@
+diff --git a/third_party/blink/renderer/platform/media/web_media_source_impl.h b/third_party/blink/renderer/platform/media/web_media_source_impl.h
+index 9f0e474c1359e..144972275f7ec 100644
+--- a/third_party/blink/renderer/platform/media/web_media_source_impl.h
++++ b/third_party/blink/renderer/platform/media/web_media_source_impl.h
+@@ -36,6 +36,11 @@ class PLATFORM_EXPORT WebMediaSourceImpl : public WebMediaSource {
+   std::unique_ptr<WebSourceBuffer> AddSourceBuffer(
+       std::unique_ptr<media::VideoDecoderConfig> video_config,
+       AddStatus& out_status /* out */) override;
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++  std::unique_ptr<WebSourceBuffer> AddSourceBuffer(
++      const WebString& mime_type,
++      AddStatus& out_status /* out */) override;
++#endif  // BUILDFLAG(USE_STARBOARD_MEDIA)
+   double Duration() override;
+   void SetDuration(double duration) override;
+   void MarkEndOfStream(EndOfStreamStatus status) override;

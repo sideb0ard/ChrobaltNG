@@ -1,0 +1,31 @@
+diff --git a/ui/ozone/platform/drm/gpu/drm_device.cc b/ui/ozone/platform/drm/gpu/drm_device.cc
+index 5cc985a63640f..6985c419c1f8d 100644
+--- a/ui/ozone/platform/drm/gpu/drm_device.cc
++++ b/ui/ozone/platform/drm/gpu/drm_device.cc
+@@ -137,7 +137,7 @@ class DrmDevice::PageFlipManager {
+   std::vector<PageFlip> callbacks_;
+ };
+ 
+-class DrmDevice::IOWatcher : public base::MessagePumpLibevent::FdWatcher {
++class DrmDevice::IOWatcher : public base::MessagePumpEpoll::FdWatcher {
+  public:
+   IOWatcher(int fd, DrmDevice::PageFlipManager* page_flip_manager)
+       : page_flip_manager_(page_flip_manager), controller_(FROM_HERE), fd_(fd) {
+@@ -161,7 +161,7 @@ class DrmDevice::IOWatcher : public base::MessagePumpLibevent::FdWatcher {
+     controller_.StopWatchingFileDescriptor();
+   }
+ 
+-  // base::MessagePumpLibevent::FdWatcher overrides:
++  // base::MessagePumpEpoll::FdWatcher overrides:
+   void OnFileCanReadWithoutBlocking(int fd) override {
+     DCHECK(base::CurrentIOThread::IsSet());
+     TRACE_EVENT1("drm", "OnDrmEvent", "socket", fd);
+@@ -176,7 +176,7 @@ class DrmDevice::IOWatcher : public base::MessagePumpLibevent::FdWatcher {
+ 
+   raw_ptr<DrmDevice::PageFlipManager, ExperimentalAsh> page_flip_manager_;
+ 
+-  base::MessagePumpLibevent::FdWatchController controller_;
++  base::MessagePumpEpoll::FdWatchController controller_;
+ 
+   int fd_;
+ };

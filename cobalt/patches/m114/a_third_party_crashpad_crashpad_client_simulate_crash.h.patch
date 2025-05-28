@@ -1,0 +1,13 @@
+diff --git a/third_party/crashpad/crashpad/client/simulate_crash.h b/third_party/crashpad/crashpad/client/simulate_crash.h
+index 036e24f6a985c..90805e7c27fee 100644
+--- a/third_party/crashpad/crashpad/client/simulate_crash.h
++++ b/third_party/crashpad/crashpad/client/simulate_crash.h
+@@ -23,6 +23,8 @@
+ #include "client/simulate_crash_ios.h"
+ #elif BUILDFLAG(IS_WIN)
+ #include "client/simulate_crash_win.h"
++#elif BUILDFLAG(ENABLE_COBALT_HERMETIC_HACKS)
++#include "client/cobalt/simulate_crash_hermetic_stub.h"
+ #elif BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_ANDROID)
+ #include "client/simulate_crash_linux.h"
+ #endif

@@ -1,0 +1,26 @@
+diff --git a/infra/config/generated/builders/try/linux-chromeos-rel/properties.json b/infra/config/generated/builders/try/linux-chromeos-rel/properties.json
+index c0e2c72847a52..7015a1eaa40c3 100644
+--- a/infra/config/generated/builders/try/linux-chromeos-rel/properties.json
++++ b/infra/config/generated/builders/try/linux-chromeos-rel/properties.json
+@@ -1,8 +1,7 @@
+ {
+   "$build/chromium_orchestrator": {
+     "compilator": "linux-chromeos-rel-compilator",
+-    "compilator_watcher_git_revision": "e3cad57252d996ab02463019e7f49343d739b885",
+-    "propagate_properties_to_compilator": true
++    "compilator_watcher_git_revision": "e3cad57252d996ab02463019e7f49343d739b885"
+   },
+   "$build/chromium_tests_builder_config": {
+     "builder_config": {
+@@ -54,11 +53,6 @@
+     ],
+     "use_clang_coverage": true
+   },
+-  "$build/reclient": {
+-    "instance": "rbe-chromium-untrusted",
+-    "jobs": 300,
+-    "metrics_project": "chromium-reclient-metrics"
+-  },
+   "$recipe_engine/resultdb/test_presentation": {
+     "column_keys": [],
+     "grouping_keys": [

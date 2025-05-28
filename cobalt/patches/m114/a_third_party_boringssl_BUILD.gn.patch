@@ -1,0 +1,82 @@
+diff --git a/third_party/boringssl/BUILD.gn b/third_party/boringssl/BUILD.gn
+index 6fb13437c6bcc..3226e7f6bbd22 100644
+--- a/third_party/boringssl/BUILD.gn
++++ b/third_party/boringssl/BUILD.gn
+@@ -11,6 +11,8 @@ import("//testing/libfuzzer/fuzzer_test.gni")
+ import("BUILD.generated.gni")
+ import("BUILD.generated_tests.gni")
+ 
++import("//cobalt/build/configs/hacks.gni")
++
+ if (enable_rust) {
+   import("//build/rust/cargo_crate.gni")
+   import("//build/rust/rust_bindgen.gni")
+@@ -18,7 +20,14 @@ if (enable_rust) {
+ 
+ # Config for us and everybody else depending on BoringSSL.
+ config("external_config") {
+-  include_dirs = [ "src/include" ]
++  if (is_cobalt_hermetic_build) {
++    include_dirs = [
++      "//cobalt/third_party/boringssl/src/include",
++      "src/include",
++    ]
++  } else {
++    include_dirs = [ "src/include" ]
++  }
+   if (is_component_build) {
+     defines = [ "BORINGSSL_SHARED_LIBRARY" ]
+   }
+@@ -110,7 +119,14 @@ if (is_win && !is_msan && current_cpu != "arm64") {
+ 
+     sources = []
+     asmflags = []
+-    include_dirs = [ "src/include" ]
++    if (is_cobalt_hermetic_build) {
++      include_dirs = [
++        "//cobalt/third_party/boringssl/src/include",
++        "src/include",
++      ]
++    } else {
++      include_dirs = [ "src/include" ]
++    }
+ 
+     if (is_msan) {
+       public_configs = [ ":no_asm_config" ]
+@@ -186,6 +202,16 @@ component("boringssl") {
+     ldflags = [ "-Wl,--version-script=" +
+                 rebase_path(version_script, root_build_dir) ]
+   }
++
++  if (is_cobalt_hermetic_build) {
++    deps += [
++      "//starboard:starboard_headers_only",
++      "//starboard/common",
++    ]
++  }
++  if (enable_cobalt_hermetic_hacks) {
++    sources += [ "src/crypto/thread_starboard.c" ]
++  }
+ }
+ 
+ if (build_with_chromium) {
+@@ -263,6 +289,9 @@ if (build_with_chromium) {
+ 
+     sources = all_sources
+     deps = [ "//third_party/boringssl/src/third_party/fiat:fiat_license" ]
++    if (is_cobalt_hermetic_build) {
++      deps += [ "//starboard:starboard_headers_only" ]
++    }
+ 
+     # Mark boringssl_asm as a public dependency so the OPENSSL_NO_ASM
+     # config is forwarded to callers. In particular, boringssl_crypto_tests
+@@ -328,6 +357,9 @@ if (build_with_chromium) {
+ 
+     sources = all_sources
+     deps = [ "//third_party/boringssl/src/third_party/fiat:fiat_license" ]
++    if (is_cobalt_hermetic_build) {
++      deps += [ "//starboard:starboard_headers_only" ]
++    }
+ 
+     # Mark boringssl_asm as a public dependency so the OPENSSL_NO_ASM
+     # config is forwarded to callers. In particular, boringssl_crypto_tests

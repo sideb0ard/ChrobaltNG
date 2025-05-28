@@ -1,0 +1,23 @@
+diff --git a/third_party/android_deps/BUILD.gn b/third_party/android_deps/BUILD.gn
+index 4763bccd73572..04a3a6530dedb 100644
+--- a/third_party/android_deps/BUILD.gn
++++ b/third_party/android_deps/BUILD.gn
+@@ -976,6 +976,18 @@ if (!limit_android_deps) {
+     ]
+   }
+ 
++  # This is generated, do not edit. Update BuildConfigGenerator.groovy instead.
++  android_aar_prebuilt("google_play_services_ads_identifier_java") {
++    aar_path = "cipd/libs/com_google_android_gms_play_services_ads_identifier/play-services-ads-identifier-18.2.0.aar"
++    info_path = "libs/com_google_android_gms_play_services_ads_identifier/com_google_android_gms_play_services_ads_identifier.info"
++    enable_bytecode_checks = false
++    deps = [
++      "$google_play_services_package:google_play_services_base_java",
++      "$google_play_services_package:google_play_services_basement_java",
++      "$google_play_services_package:google_play_services_tasks_java",
++    ]
++  }
++
+   # This is generated, do not edit. Update BuildConfigGenerator.groovy instead.
+   android_aar_prebuilt("google_play_services_auth_api_phone_java") {
+     aar_path = "libs/com_google_android_gms_play_services_auth_api_phone/play-services-auth-api-phone-18.0.1.aar"

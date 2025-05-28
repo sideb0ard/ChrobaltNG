@@ -1,0 +1,23 @@
+diff --git a/content/public/renderer/content_renderer_client.cc b/content/public/renderer/content_renderer_client.cc
+index 95905f1851f64..29f0551beeb4c 100644
+--- a/content/public/renderer/content_renderer_client.cc
++++ b/content/public/renderer/content_renderer_client.cc
+@@ -263,7 +263,8 @@ ContentRendererClient::GetBaseRendererFactory(
+     media::MediaLog* media_log,
+     media::DecoderFactory* decoder_factory,
+     base::RepeatingCallback<media::GpuVideoAcceleratorFactories*()>
+-        get_gpu_factories_cb) {
++        get_gpu_factories_cb,
++    int element_id) {
+   return nullptr;
+ }
+ 
+@@ -274,4 +275,8 @@ ContentRendererClient::CreateCastStreamingResourceProvider() {
+ }
+ #endif
+ 
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++void ContentRendererClient::GetStarboardRendererFactoryTraits(
++  media::RendererFactoryTraits* renderer_factory_traits) {}
++#endif // BUILDFLAG(USE_STARBOARD_MEDIA)
+ }  // namespace content

@@ -1,0 +1,87 @@
+diff --git a/base/test/BUILD.gn b/base/test/BUILD.gn
+index cc75b7235f438..2d0e4e881c8f9 100644
+--- a/base/test/BUILD.gn
++++ b/base/test/BUILD.gn
+@@ -172,7 +172,7 @@ static_library("test_support") {
+ 
+   if (enable_base_tracing) {
+     public_deps += [ "//third_party/perfetto:perfetto_test_support" ]
+-    if (!is_chromeos) {
++    if (!is_chromeos && !is_cobalt_hermetic_build) {
+       # TODO(rasikan): Add to ios and chromeos when unblocked by the chromiumos
+       # change to add the shared lib to the chrome-binary-tests directory.
+       public_deps += [ ":test_trace_processor" ]
+@@ -222,6 +222,12 @@ static_library("test_support") {
+     ]
+   }
+ 
++  if (is_starboard) {
++    sources += [
++      "test_support_starboard.cc",
++      "test_support_starboard.h",
++    ]
++  }
+   if (is_android) {
+     sources += [
+       "android/java_handler_thread_helpers.cc",
+@@ -286,7 +292,7 @@ static_library("test_support") {
+     ]
+   }
+ 
+-  if (use_blink) {
++  if (use_blink && !is_cobalt_hermetic_build) {
+     sources += [
+       "launcher/test_launcher.cc",
+       "launcher/test_launcher.h",
+@@ -298,6 +304,8 @@ static_library("test_support") {
+       "launcher/unit_test_launcher.cc",
+       "multiprocess_test.cc",
+     ]
++  } else {
++    sources += [ "multiprocess_test_starboard.cc" ]
+   }
+ 
+   if (enable_base_tracing) {
+@@ -373,8 +381,13 @@ shared_library("immediate_crash_test_helper") {
+   if (is_android) {
+     configs -= [ "//build/config/android:hide_all_but_jni_onload" ]
+   }
++
++  if (is_starboard) {
++    deps = [ "//starboard:starboard_group" ]
++  }
+ }
+ 
++if (!is_starboard) {
+ # This shared library is dynamically loaded by NativeLibrary unittests.
+ shared_library("test_shared_library") {
+   testonly = true
+@@ -382,6 +395,7 @@ shared_library("test_shared_library") {
+ 
+   deps = [ ":native_library_test_utils" ]
+ }
++}
+ 
+ if (is_fuchsia || is_linux || is_chromeos) {
+   shared_library("malloc_wrapper") {
+@@ -474,14 +488,16 @@ if (is_ios) {
+   }
+ }
+ 
++if (!is_starboard) {
+ # Trivial executable which outputs space-delimited argv to stdout,
+ # used for testing.
+ executable("test_child_process") {
+   testonly = true
+   sources = [ "test_child_process.cc" ]
+ }
++}
+ 
+-if (enable_base_tracing) {
++if (enable_base_tracing && !is_cobalt_hermetic_build) {
+   # We encapsulate the trace processor in a separate shared library to prevent
+   # any duplicate symbol issues. Perfetto symbols are exported by chromium’s
+   # base via a public_dep on libperfetto; libtrace_processor also depends on
+diff --git a/base/test/multiprocess_test_starboard.cc b/base/test/multiprocess_test_starboard.cc
+new file mode 100644
+index 0000000000000..7efcaf424ff6d

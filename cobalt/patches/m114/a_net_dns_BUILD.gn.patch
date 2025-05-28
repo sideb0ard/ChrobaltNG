@@ -1,0 +1,13 @@
+diff --git a/net/dns/BUILD.gn b/net/dns/BUILD.gn
+index a8193d411da14..212166b1e9e8e 100644
+--- a/net/dns/BUILD.gn
++++ b/net/dns/BUILD.gn
+@@ -6,7 +6,7 @@ import("//net/features.gni")
+ import("//testing/libfuzzer/fuzzer_test.gni")
+ import("//third_party/protobuf/proto_library.gni")
+ 
+-enable_built_in_dns = use_blink
++enable_built_in_dns = use_blink && !is_starboard
+ 
+ source_set("dns") {
+   # Due to circular dependencies, should only be depended on through //net.

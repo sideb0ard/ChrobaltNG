@@ -1,0 +1,15 @@
+diff --git a/third_party/blink/renderer/modules/encryptedmedia/media_keys.h b/third_party/blink/renderer/modules/encryptedmedia/media_keys.h
+index 0bae98f48d488..2fe2e9c468912 100644
+--- a/third_party/blink/renderer/modules/encryptedmedia/media_keys.h
++++ b/third_party/blink/renderer/modules/encryptedmedia/media_keys.h
+@@ -80,6 +80,10 @@ class MediaKeys : public ScriptWrappable,
+                                    const MediaKeysPolicy*,
+                                    ExceptionState&);
+ 
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++  WebString getMetrics(ExceptionState&);
++#endif // BUILDFLAG(USE_STARBOARD_MEDIA)
++
+   // Indicates that the provided HTMLMediaElement wants to use this object.
+   // Returns true if no other HTMLMediaElement currently references this
+   // object, false otherwise. If true, will take a weak reference to

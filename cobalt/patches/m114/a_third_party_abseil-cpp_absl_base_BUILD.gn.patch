@@ -1,0 +1,14 @@
+diff --git a/third_party/abseil-cpp/absl/base/BUILD.gn b/third_party/abseil-cpp/absl/base/BUILD.gn
+index 3f525ac92e2e1..5c7700107bf97 100644
+--- a/third_party/abseil-cpp/absl/base/BUILD.gn
++++ b/third_party/abseil-cpp/absl/base/BUILD.gn
+@@ -39,6 +39,9 @@ absl_source_set("raw_logging_internal") {
+     ":log_severity",
+   ]
+   visibility = [ "//third_party/abseil-cpp/absl/*" ]
++  if (is_cobalt_hermetic_build) {
++    public_deps += [ "//starboard:starboard_headers_only" ]
++  }
+ }
+ 
+ absl_source_set("spinlock_wait") {

@@ -1,0 +1,25 @@
+diff --git a/base/process/memory_unittest.cc b/base/process/memory_unittest.cc
+index 090fe9b846250..e64abd179d40a 100644
+--- a/base/process/memory_unittest.cc
++++ b/base/process/memory_unittest.cc
+@@ -367,7 +367,7 @@ TEST_F(OutOfMemoryDeathTest, SecurityAlignedRealloc) {
+ #endif  // BUILDFLAG(IS_WIN)
+ #endif  // !BUILDFLAG(IS_MAC)
+ 
+-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
++#if BUILDFLAG(IS_LINUX) && !BUILDFLAG(IS_STARBOARD) || BUILDFLAG(IS_CHROMEOS)
+ 
+ TEST_F(OutOfMemoryDeathTest, Valloc) {
+   ASSERT_OOM_DEATH({
+@@ -413,7 +413,7 @@ TEST_F(OutOfMemoryDeathTest, ViaSharedLibraries) {
+     value_ = MallocWrapper(test_size_);
+   });
+ }
+-#endif  // BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
++#endif  // BUILDFLAG(IS_LINUX) && !BUILDFLAG(IS_STARBOARD) || BUILDFLAG(IS_CHROMEOS)
+ 
+ // Android doesn't implement posix_memalign().
+ #if BUILDFLAG(IS_POSIX) && !BUILDFLAG(IS_ANDROID)
+diff --git a/base/process/process_metrics_posix_starboard_stub.cc b/base/process/process_metrics_posix_starboard_stub.cc
+new file mode 100644
+index 0000000000000..5280548d78d46

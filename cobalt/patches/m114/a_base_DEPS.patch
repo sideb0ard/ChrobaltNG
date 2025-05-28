@@ -1,0 +1,12 @@
+diff --git a/base/DEPS b/base/DEPS
+index 679f6ccdea4fc..0d50cd36fe3a6 100644
+--- a/base/DEPS
++++ b/base/DEPS
+@@ -3,7 +3,6 @@ include_rules = [
+   "+third_party/apple_apsl",
+   "+third_party/boringssl/src/include",
+   "+third_party/ced",
+-  "+third_party/libevent",
+   "+third_party/libunwindstack/src/libunwindstack/include",
+   "+third_party/lss",
+   "+third_party/modp_b64",

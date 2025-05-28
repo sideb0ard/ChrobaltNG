@@ -1,0 +1,18 @@
+diff --git a/media/base/cdm_context.cc b/media/base/cdm_context.cc
+index 50d95a78575ba..dee7e9e407aa3 100644
+--- a/media/base/cdm_context.cc
++++ b/media/base/cdm_context.cc
+@@ -47,6 +47,13 @@ MediaCryptoContext* CdmContext::GetMediaCryptoContext() {
+ }
+ #endif
+ 
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++SbDrmSystem CdmContext::GetSbDrmSystem() {
++  return kSbDrmSystemInvalid;
++}
++#endif // BUILDFLAG(USE_STARBOARD_MEDIA)
++
++
+ #if BUILDFLAG(IS_FUCHSIA)
+ FuchsiaCdmContext* CdmContext::GetFuchsiaCdmContext() {
+   return nullptr;

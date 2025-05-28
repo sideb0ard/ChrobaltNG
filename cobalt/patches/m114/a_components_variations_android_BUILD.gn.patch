@@ -1,0 +1,19 @@
+diff --git a/components/variations/android/BUILD.gn b/components/variations/android/BUILD.gn
+index 9df3821858590..08c8a8250cd6f 100644
+--- a/components/variations/android/BUILD.gn
++++ b/components/variations/android/BUILD.gn
+@@ -21,8 +21,13 @@ android_library("variations_java") {
+     "java/src/org/chromium/components/variations/VariationsAssociatedData.java",
+     "java/src/org/chromium/components/variations/VariationsCompressionUtils.java",
+     "java/src/org/chromium/components/variations/firstrun/VariationsSeedBridge.java",
+-    "java/src/org/chromium/components/variations/firstrun/VariationsSeedFetcher.java",
+   ]
++
++  if (!is_cobalt) {
++    sources += [
++      "java/src/org/chromium/components/variations/firstrun/VariationsSeedFetcher.java",
++    ]
++  }
+ }
+ 
+ generate_jni("test_support_jni_headers") {

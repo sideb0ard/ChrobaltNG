@@ -1,0 +1,12 @@
+diff --git a/content/common/features.gni b/content/common/features.gni
+index 111edf65ec668..e82d78457e8ef 100644
+--- a/content/common/features.gni
++++ b/content/common/features.gni
+@@ -19,5 +19,7 @@ declare_args() {
+   mbi_mode = is_linux || is_chromeos || is_mac || is_win || is_android
+ }
+ 
++declare_args() {
+ enable_screen_capture =
+     is_linux || is_chromeos || is_mac || is_win || is_android || is_fuchsia
++}

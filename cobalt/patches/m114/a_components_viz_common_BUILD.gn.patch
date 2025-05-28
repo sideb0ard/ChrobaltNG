@@ -1,0 +1,15 @@
+diff --git a/components/viz/common/BUILD.gn b/components/viz/common/BUILD.gn
+index 1f604cf5eee4a..42ea5b870fb57 100644
+--- a/components/viz/common/BUILD.gn
++++ b/components/viz/common/BUILD.gn
+@@ -11,6 +11,10 @@ import("//testing/test.gni")
+ 
+ import("//third_party/inspector_protocol/inspector_protocol.gni")
+ 
++if (is_cobalt) {
++  import("//starboard/build/buildflags.gni")
++}
++
+ source_set("resource_format") {
+   sources = [
+     "resources/resource_format.h",

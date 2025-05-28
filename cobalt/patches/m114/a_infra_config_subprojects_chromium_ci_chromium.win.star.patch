@@ -1,0 +1,14 @@
+diff --git a/infra/config/subprojects/chromium/ci/chromium.win.star b/infra/config/subprojects/chromium/ci/chromium.win.star
+index 4f2f4fa41e118..441724cb3d810 100644
+--- a/infra/config/subprojects/chromium/ci/chromium.win.star
++++ b/infra/config/subprojects/chromium/ci/chromium.win.star
+@@ -172,9 +172,6 @@ ci.builder(
+         gclient_config = builder_config.gclient_config(
+             config = "chromium",
+             apply_configs = [
+-                # This is necessary due to child builders running the
+-                # telemetry_perf_unittests suite.
+-                "chromium_with_telemetry_dependencies",
+                 "use_clang_coverage",
+             ],
+         ),

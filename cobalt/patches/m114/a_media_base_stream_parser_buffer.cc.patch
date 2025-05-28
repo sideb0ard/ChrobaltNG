@@ -1,0 +1,32 @@
+diff --git a/media/base/stream_parser_buffer.cc b/media/base/stream_parser_buffer.cc
+index b3d75bce07f98..62059b46bbd3b 100644
+--- a/media/base/stream_parser_buffer.cc
++++ b/media/base/stream_parser_buffer.cc
+@@ -80,7 +80,11 @@ StreamParserBuffer::StreamParserBuffer(const uint8_t* data,
+                                        bool is_key_frame,
+                                        Type type,
+                                        TrackId track_id)
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++    : DecoderBuffer(type, data, data_size, side_data, side_data_size),
++#else // BUILDFLAG(USE_STARBOARD_MEDIA)
+     : DecoderBuffer(data, data_size, side_data, side_data_size),
++#endif // BUILDFLAG(USE_STARBOARD_MEDIA)
+       decode_timestamp_(kNoDecodeTimestamp),
+       config_id_(kInvalidConfigId),
+       type_(type),
+@@ -140,4 +144,15 @@ void StreamParserBuffer::set_timestamp(base::TimeDelta timestamp) {
+     preroll_buffer_->set_timestamp(timestamp);
+ }
+ 
++size_t StreamParserBuffer::GetMemoryUsage() const {
++  size_t memory_usage = DecoderBuffer::GetMemoryUsage() -
++                        sizeof(DecoderBuffer) + sizeof(StreamParserBuffer);
++
++  if (preroll_buffer_) {
++    memory_usage += preroll_buffer_->GetMemoryUsage();
++  }
++
++  return memory_usage;
++}
++
+ }  // namespace media

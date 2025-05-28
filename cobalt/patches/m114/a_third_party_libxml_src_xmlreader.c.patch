@@ -1,0 +1,12 @@
+diff --git a/third_party/libxml/src/xmlreader.c b/third_party/libxml/src/xmlreader.c
+index 979385a138229..fefd68e0b9152 100644
+--- a/third_party/libxml/src/xmlreader.c
++++ b/third_party/libxml/src/xmlreader.c
+@@ -1443,6 +1443,7 @@ node_found:
+      * Handle XInclude if asked for
+      */
+     if ((reader->xinclude) && (reader->in_xinclude == 0) &&
++        (reader->state != XML_TEXTREADER_BACKTRACK) &&
+         (reader->node != NULL) &&
+ 	(reader->node->type == XML_ELEMENT_NODE) &&
+ 	(reader->node->ns != NULL) &&

@@ -1,0 +1,20 @@
+diff --git a/services/network/public/mojom/content_security_policy.mojom b/services/network/public/mojom/content_security_policy.mojom
+index e0b7339a58ba3..8364753c0c8a8 100644
+--- a/services/network/public/mojom/content_security_policy.mojom
++++ b/services/network/public/mojom/content_security_policy.mojom
+@@ -89,6 +89,7 @@ struct CSPSourceList {
+   bool allow_dynamic = false;
+   bool allow_unsafe_hashes = false;
+   bool report_sample = false;
++  [EnableIf=cobalt_custom_csp]bool cobalt_insecure_local_network = false;
+ };
+ 
+ enum CSPDirectiveName {
+@@ -123,6 +124,7 @@ enum CSPDirectiveName {
+   TrustedTypes,
+   UpgradeInsecureRequests,
+   WorkerSrc,
++  [EnableIf=cobalt_custom_csp]CobaltLocationSrc,
+ };
+ 
+ enum CSPRequireTrustedTypesFor {

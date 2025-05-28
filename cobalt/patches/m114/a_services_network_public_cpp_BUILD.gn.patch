@@ -1,0 +1,13 @@
+diff --git a/services/network/public/cpp/BUILD.gn b/services/network/public/cpp/BUILD.gn
+index 456c4be53d10c..761df5ec73991 100644
+--- a/services/network/public/cpp/BUILD.gn
++++ b/services/network/public/cpp/BUILD.gn
+@@ -469,7 +469,7 @@ component("cpp_base") {
+     sources += [ "transferable_directory_fuchsia.cc" ]
+   }
+ 
+-  if (is_linux) {
++  if (is_linux && !is_cobalt_hermetic_build) {
+     sources += [
+       "network_interface_change_listener_mojom_traits.cc",
+       "network_interface_change_listener_mojom_traits.h",

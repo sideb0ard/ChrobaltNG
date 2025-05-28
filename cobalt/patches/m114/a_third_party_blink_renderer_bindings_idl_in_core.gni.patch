@@ -1,0 +1,36 @@
+diff --git a/third_party/blink/renderer/bindings/idl_in_core.gni b/third_party/blink/renderer/bindings/idl_in_core.gni
+index 5bb19a145280e..ac4ac6aab9c37 100644
+--- a/third_party/blink/renderer/bindings/idl_in_core.gni
++++ b/third_party/blink/renderer/bindings/idl_in_core.gni
+@@ -4,6 +4,10 @@
+ 
+ # Statically-defined (not build-time-generated) IDL files in 'core' component
+ # for production.
++if (is_cobalt) {
++  import("//starboard/build/buildflags.gni")
++}
++
+ static_idl_files_in_core = get_path_info(
+         [
+           "//third_party/blink/renderer/core/accessibility/aria_notification_options.idl",
+@@ -758,6 +762,20 @@ static_idl_files_in_core = get_path_info(
+         ],
+         "abspath")
+ 
++if (is_cobalt) {
++  static_idl_files_in_core += get_path_info(
++          [ "//third_party/blink/renderer/core/cobalt/performance/performance_extensions.idl" ],
++          "abspath")
++  if (use_starboard_media) {
++    static_idl_files_in_core += get_path_info(
++            [ "//third_party/blink/renderer/core/cobalt/html_video_element/html_video_element_extensions.idl" ],
++            "abspath")
++    static_idl_files_in_core += get_path_info(
++            [ "//third_party/blink/renderer/core/cobalt/memory_info/memory_info_extensions.idl" ],
++            "abspath")
++  }
++}
++
+ # Statically-defined (not build-time-generated) IDL files in 'core' component.
+ # These IDL definitions are used only for testing.
+ static_idl_files_in_core_for_testing = get_path_info(

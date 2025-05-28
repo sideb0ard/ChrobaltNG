@@ -1,0 +1,11 @@
+diff --git a/ui/file_manager/image_loader/piex/.gitignore b/ui/file_manager/image_loader/piex/.gitignore
+index b7f6fee6ca091..454f22f711322 100644
+--- a/ui/file_manager/image_loader/piex/.gitignore
++++ b/ui/file_manager/image_loader/piex/.gitignore
+@@ -1,6 +1,5 @@
+ images
+ node_modules
+-package-lock.json
+ tests.result.txt
+ tests.log
+ piex.out.js

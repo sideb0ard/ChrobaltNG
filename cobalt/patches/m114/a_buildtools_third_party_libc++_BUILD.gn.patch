@@ -1,0 +1,26 @@
+diff --git a/buildtools/third_party/libc++/BUILD.gn b/buildtools/third_party/libc++/BUILD.gn
+index 21421aa32047d..461353d7793de 100644
+--- a/buildtools/third_party/libc++/BUILD.gn
++++ b/buildtools/third_party/libc++/BUILD.gn
+@@ -54,6 +54,7 @@ target(_libcxx_target_type, "libc++") {
+     "//build/config:common_deps",
+     "//third_party/catapult/devil:devil",
+   ]
++
+   if (is_linux) {
+     # This target packages libc++.so, so must have an explicit dependency on
+     # libc++.
+@@ -210,4 +211,13 @@ target(_libcxx_target_type, "libc++") {
+       deps = [ "//buildtools/third_party/libc++abi" ]
+     }
+   }
++
++  if (is_cobalt_hermetic_build && current_toolchain == cobalt_toolchain) {
++    # TODO: b/384652502 - Cobalt: Fix compiler errors building hermetically.
++    sources -= [ "trunk/src/atomic.cpp" ]
++    deps += [
++      "//third_party/llvm-project/compiler-rt:compiler_rt",
++      "//third_party/musl:c",
++    ]
++  }
+ }

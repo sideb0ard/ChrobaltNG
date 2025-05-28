@@ -1,0 +1,31 @@
+diff --git a/services/network/public/mojom/BUILD.gn b/services/network/public/mojom/BUILD.gn
+index 47c774313f710..3f8eb84d84b67 100644
+--- a/services/network/public/mojom/BUILD.gn
++++ b/services/network/public/mojom/BUILD.gn
+@@ -464,12 +464,16 @@ mojom("url_loader_base") {
+     enabled_features += [ "network_change_notifier_in_browser" ]
+   }
+ 
+-  if (is_linux) {
++  if (is_linux && !is_cobalt_hermetic_build) {
+     # TODO(crbug.com/1431866): Remove this once is_linux in the mojom IDL does
+     # not include lacros.
+     enabled_features += [ "use_network_interface_change_listener" ]
+   }
+ 
++  if (is_cobalt) {
++    enabled_features += [ "cobalt_custom_csp" ]
++  }
++
+   if (!is_ios) {
+     export_class_attribute_blink = "BLINK_PLATFORM_EXPORT"
+     export_define_blink = "BLINK_PLATFORM_IMPLEMENTATION=1"
+@@ -1377,7 +1381,7 @@ mojom("mojom") {
+     }
+   }
+ 
+-  if (is_linux) {
++  if (is_linux && !is_cobalt_hermetic_build) {
+     # TODO(crbug.com/1431866): Remove this once is_linux in the mojom IDL does
+     # not include lacros.
+     enabled_features += [ "use_network_interface_change_listener" ]

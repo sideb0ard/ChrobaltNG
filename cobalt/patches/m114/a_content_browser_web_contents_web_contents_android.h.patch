@@ -1,0 +1,13 @@
+diff --git a/content/browser/web_contents/web_contents_android.h b/content/browser/web_contents/web_contents_android.h
+index c1e1f7059c7f0..4f7620c48e9d4 100644
+--- a/content/browser/web_contents/web_contents_android.h
++++ b/content/browser/web_contents/web_contents_android.h
+@@ -93,6 +93,8 @@ class CONTENT_EXPORT WebContentsAndroid {
+ 
+   void OnHide(JNIEnv* env);
+   void OnShow(JNIEnv* env);
++  void OnFreeze(JNIEnv* env);
++  void OnResume(JNIEnv* env);
+   void SetImportance(JNIEnv* env, jint importance);
+   void SuspendAllMediaPlayers(JNIEnv* env);
+   void SetAudioMuted(JNIEnv* env, jboolean mute);

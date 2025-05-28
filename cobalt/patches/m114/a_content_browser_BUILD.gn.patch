@@ -1,0 +1,76 @@
+diff --git a/content/browser/BUILD.gn b/content/browser/BUILD.gn
+index 7824a83f0a7f7..cbd7d6df05c28 100644
+--- a/content/browser/BUILD.gn
++++ b/content/browser/BUILD.gn
+@@ -27,6 +27,7 @@ import("//tools/ipc_fuzzer/ipc_fuzzer.gni")
+ if (is_mac) {
+   import("//content/public/app/mac_helpers.gni")
+ }
++import("//cobalt/build/configs/hacks.gni")
+ 
+ buildflag_header("buildflags") {
+   header = "buildflags.h"
+@@ -2359,24 +2360,24 @@ source_set("browser") {
+   }
+ 
+   if (is_linux || is_chromeos) {
+-    sources += [
+-      "child_process_launcher_helper_linux.cc",
+-      "font_access/font_enumeration_data_source_linux.cc",
+-      "font_access/font_enumeration_data_source_linux.h",
+-      "font_service.cc",
+-      "font_service.h",
+-      "media/stable_video_decoder_factory.cc",
+-      "media/video_encode_accelerator_provider_launcher.cc",
+-      "media/video_encode_accelerator_provider_launcher.h",
+-      "memory/swap_metrics_driver_impl_linux.cc",
+-      "memory/swap_metrics_driver_impl_linux.h",
+-      "sandbox_host_linux.cc",
+-      "sandbox_host_linux.h",
+-      "sandbox_ipc_linux.cc",
+-      "sandbox_ipc_linux.h",
+-      "zygote_host/zygote_host_impl_linux.cc",
+-      "zygote_host/zygote_host_impl_linux.h",
+-    ]
++      sources += [
++        "child_process_launcher_helper_linux.cc",
++        "font_access/font_enumeration_data_source_linux.cc",
++        "font_access/font_enumeration_data_source_linux.h",
++        "font_service.cc",
++        "font_service.h",
++        "media/stable_video_decoder_factory.cc",
++        "media/video_encode_accelerator_provider_launcher.cc",
++        "media/video_encode_accelerator_provider_launcher.h",
++        "memory/swap_metrics_driver_impl_linux.cc",
++        "memory/swap_metrics_driver_impl_linux.h",
++        "sandbox_host_linux.cc",
++        "sandbox_host_linux.h",
++        "sandbox_ipc_linux.cc",
++        "sandbox_ipc_linux.h",
++        "zygote_host/zygote_host_impl_linux.cc",
++        "zygote_host/zygote_host_impl_linux.h",
++      ]
+ 
+     public_deps += [ "//components/services/font/public/mojom" ]
+ 
+@@ -2388,6 +2389,20 @@ source_set("browser") {
+       "//third_party/blink/public/mojom:memory_usage_monitor_linux_mojo_bindings",
+     ]
+   }
++  if (is_cobalt_hermetic_build) {
++    sources -= [
++      "child_process_launcher_helper_linux.cc",
++      "sandbox_host_linux.cc",
++      "sandbox_host_linux.h",
++      "sandbox_ipc_linux.cc",
++      "sandbox_ipc_linux.h",
++      "zygote_host/zygote_host_impl_linux.cc",
++      "zygote_host/zygote_host_impl_linux.h",
++    ]
++    sources += [
++      "child_process_launcher_helper_starboard.cc",
++    ]
++  }
+ 
+   if (is_chromeos) {
+     sources += [

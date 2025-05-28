@@ -1,0 +1,13 @@
+diff --git a/media/filters/ffmpeg_demuxer.h b/media/filters/ffmpeg_demuxer.h
+index bbc77cfa4039d..518defab5c318 100644
+--- a/media/filters/ffmpeg_demuxer.h
++++ b/media/filters/ffmpeg_demuxer.h
+@@ -131,7 +131,7 @@ class MEDIA_EXPORT FFmpegDemuxerStream : public DemuxerStream {
+   // Returns true if this stream has capacity for additional data.
+   bool HasAvailableCapacity();
+ 
+-  // Returns the total buffer size FFMpegDemuxerStream is holding onto.
++  // Returns the total memory usage of FFMpegDemuxerStream.
+   size_t MemoryUsage() const;
+ 
+   TextKind GetTextKind() const;

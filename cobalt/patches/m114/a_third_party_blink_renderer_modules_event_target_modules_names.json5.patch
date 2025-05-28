@@ -1,0 +1,14 @@
+diff --git a/third_party/blink/renderer/modules/event_target_modules_names.json5 b/third_party/blink/renderer/modules/event_target_modules_names.json5
+index 787d6af36d582..eb24baedea5b9 100644
+--- a/third_party/blink/renderer/modules/event_target_modules_names.json5
++++ b/third_party/blink/renderer/modules/event_target_modules_names.json5
+@@ -92,5 +92,9 @@
+     "VideoEncoder",
+     "AudioDecoder",
+     "VideoDecoder",
++    # TODO(cobalt, b/400518318): "Extract Cobalt event to separate file"
++    "H5vccAccessibility",
++    "H5vccMetrics",
++    "H5vccRuntime",
+   ],
+ }

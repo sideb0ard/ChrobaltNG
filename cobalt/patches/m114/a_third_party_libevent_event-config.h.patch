@@ -1,0 +1,15 @@
+diff --git a/third_party/libevent/event-config.h b/third_party/libevent/event-config.h
+index 22c4b2e6fbf96..c4ece4041731e 100644
+--- a/third_party/libevent/event-config.h
++++ b/third_party/libevent/event-config.h
+@@ -5,7 +5,9 @@
+ // This file is Chromium-specific, and brings in the appropriate
+ // event-config.h depending on your platform.
+ 
+-#if defined(__APPLE__)
++#if defined(LIBEVENT_CONFIG_PLATFORM_HEADER)
++#include LIBEVENT_CONFIG_PLATFORM_HEADER
++#elif defined(__APPLE__)
+ #include "third_party/libevent/mac/event-config.h"
+ #elif defined(ANDROID)
+ #include "third_party/libevent/android/event-config.h"

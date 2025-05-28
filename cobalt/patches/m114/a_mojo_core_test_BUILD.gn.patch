@@ -1,0 +1,20 @@
+diff --git a/mojo/core/test/BUILD.gn b/mojo/core/test/BUILD.gn
+index 09caedcccf6b0..4b51f9c93a4bf 100644
+--- a/mojo/core/test/BUILD.gn
++++ b/mojo/core/test/BUILD.gn
+@@ -67,6 +67,15 @@ source_set("run_all_unittests") {
+     "//testing/gtest",
+   ]
+ 
++  if (is_starboard) {
++    # Replace the standard runner with the starboard test runner.
++    sources -= [ "run_all_unittests.cc" ]
++    sources += [ "//starboard/testing/run_all_unittests_starboard.cc" ]
++    deps += [
++      "//starboard:starboard_group",
++    ]
++  }
++
+   if ((is_linux || is_chromeos) && !is_component_build) {
+     public_configs = [ "//build/config/gcc:rpath_for_built_shared_libraries" ]
+   }

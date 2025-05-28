@@ -1,0 +1,41 @@
+diff --git a/sandbox/policy/BUILD.gn b/sandbox/policy/BUILD.gn
+index 2701a2493dc2c..be9c591817b77 100644
+--- a/sandbox/policy/BUILD.gn
++++ b/sandbox/policy/BUILD.gn
+@@ -35,7 +35,7 @@ component("policy") {
+     "//sandbox/policy/mojom",
+   ]
+   public_deps = [ "//sandbox:common" ]
+-  if (is_linux || is_chromeos) {
++  if ((is_linux || is_chromeos) && !is_cobalt_hermetic_build) {
+     sources += [
+       "linux/bpf_audio_policy_linux.cc",
+       "linux/bpf_audio_policy_linux.h",
+@@ -105,6 +105,24 @@ component("policy") {
+       "//sandbox/linux:suid_sandbox_client",
+     ]
+   }
++  if (is_cobalt_hermetic_build) {
++    sources += [
++      "export.h",
++      "linux/sandbox_debug_handling_linux.cc",
++      "linux/sandbox_debug_handling_linux.h",
++      "linux/sandbox_linux.h",
++
++      # // TODO: b/b/411720612 - Cobalt: Make sandbox changes which can
++      # be upstreamed to Chromium.
++      "linux/sandbox_linux_starboard_stub.cc",
++    ]
++    deps += [
++      ":chromecast_sandbox_allowlist_buildflags",
++      "//sandbox:sandbox_buildflags",
++      "//sandbox/linux:sandbox_services",
++      "//sandbox/linux:suid_sandbox_client",
++    ]
++  }
+   if (is_chromeos_ash) {
+     sources += [
+       "linux/bpf_ime_policy_linux.cc",
+diff --git a/sandbox/policy/linux/sandbox_linux_starboard_stub.cc b/sandbox/policy/linux/sandbox_linux_starboard_stub.cc
+new file mode 100644
+index 0000000000000..3bdf084ce226b

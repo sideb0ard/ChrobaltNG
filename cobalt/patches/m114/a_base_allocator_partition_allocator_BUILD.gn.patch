@@ -1,0 +1,12 @@
+diff --git a/base/allocator/partition_allocator/BUILD.gn b/base/allocator/partition_allocator/BUILD.gn
+index 4d64e3fdb4f03..2bfcd36e1c07b 100644
+--- a/base/allocator/partition_allocator/BUILD.gn
++++ b/base/allocator/partition_allocator/BUILD.gn
+@@ -320,6 +320,7 @@ component("partition_alloc") {
+     # tagging.cc requires __arm_mte_set_* functions.
+     deps += [ "//third_party/android_ndk:cpu_features" ]
+   }
++
+   if (is_fuchsia) {
+     public_deps += [
+       "//third_party/fuchsia-sdk/sdk/pkg/fit",

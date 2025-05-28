@@ -1,0 +1,16 @@
+diff --git a/ui/ozone/platform/wayland/test/test_wayland_server_thread.cc b/ui/ozone/platform/wayland/test/test_wayland_server_thread.cc
+index d60fd559c2e72..e70e2982f63b2 100644
+--- a/ui/ozone/platform/wayland/test/test_wayland_server_thread.cc
++++ b/ui/ozone/platform/wayland/test/test_wayland_server_thread.cc
+@@ -282,9 +282,9 @@ bool TestWaylandServerThread::SetupExplicitSynchronizationProtocol(
+ std::unique_ptr<base::MessagePump>
+ TestWaylandServerThread::CreateMessagePump() {
+   DCHECK_CALLED_ON_VALID_THREAD(thread_checker_);
+-  auto pump = std::make_unique<base::MessagePumpLibevent>();
++  auto pump = std::make_unique<base::MessagePumpEpoll>();
+   pump->WatchFileDescriptor(wl_event_loop_get_fd(event_loop_), true,
+-                            base::MessagePumpLibevent::WATCH_READ, &controller_,
++                            base::MessagePumpEpoll::WATCH_READ, &controller_,
+                             this);
+   return std::move(pump);
+ }

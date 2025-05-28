@@ -1,0 +1,22 @@
+diff --git a/content/browser/media/frameless_media_interface_proxy.cc b/content/browser/media/frameless_media_interface_proxy.cc
+index ebf6301b733b8..eade16aa914f9 100644
+--- a/content/browser/media/frameless_media_interface_proxy.cc
++++ b/content/browser/media/frameless_media_interface_proxy.cc
+@@ -137,6 +137,17 @@ void FramelessMediaInterfaceProxy::CreateMediaFoundationRenderer(
+         client_extension_remote) {}
+ #endif  // BUILDFLAG(IS_WIN)
+ 
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++void FramelessMediaInterfaceProxy::CreateStarboardRenderer(
++    mojo::PendingRemote<media::mojom::MediaLog> media_log_remote,
++    const media::StarboardRendererConfig& config,
++    mojo::PendingReceiver<media::mojom::Renderer> receiver,
++    mojo::PendingReceiver<media::mojom::StarboardRendererExtension>
++        renderer_extension_receiver,
++    mojo::PendingRemote<media::mojom::StarboardRendererClientExtension>
++        client_extension_remote) {}
++#endif  // BUILDFLAG(USE_STARBOARD_MEDIA)
++
+ void FramelessMediaInterfaceProxy::CreateCdm(const media::CdmConfig& cdm_config,
+                                              CreateCdmCallback callback) {
+   std::move(callback).Run(mojo::NullRemote(), nullptr, "CDM not supported");

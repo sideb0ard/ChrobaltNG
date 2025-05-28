@@ -1,0 +1,16 @@
+diff --git a/media/cdm/library_cdm/clear_key_cdm/BUILD.gn b/media/cdm/library_cdm/clear_key_cdm/BUILD.gn
+index 37f6c3b6eefa7..e21f0842f7d75 100644
+--- a/media/cdm/library_cdm/clear_key_cdm/BUILD.gn
++++ b/media/cdm/library_cdm/clear_key_cdm/BUILD.gn
+@@ -46,6 +46,11 @@ loadable_module("clear_key_cdm_bin") {
+     ]
+     defines += [ "CLEAR_KEY_CDM_USE_FFMPEG_DECODER" ]
+     deps += [ "//third_party/ffmpeg" ]
++  } else {
++    sources -= [
++      "clear_key_cdm.cc",
++      "clear_key_cdm.h",
++    ]
+   }
+ }
+ 

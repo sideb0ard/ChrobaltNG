@@ -1,0 +1,37 @@
+diff --git a/content/web_test/BUILD.gn b/content/web_test/BUILD.gn
+index fb0b6624f71fc..b7aac1f2c0eb9 100644
+--- a/content/web_test/BUILD.gn
++++ b/content/web_test/BUILD.gn
+@@ -36,6 +36,18 @@ mojom("web_test_common_mojom") {
+     "//url/mojom:url_mojom_origin",
+   ]
+ 
++  if (is_cobalt) {
++    # These deps automatically generate the JavaScript bindings.
++    public_deps += [
++      "//cobalt/browser/crash_annotator/public/mojom",
++      # TODO(b/409786069): Add web tests for window.accessibility
++      #"//cobalt/browser/h5vcc_accessibility/public/mojom",
++      "//cobalt/browser/h5vcc_experiments/public/mojom",
++      "//cobalt/browser/h5vcc_runtime/public/mojom",
++      "//cobalt/browser/h5vcc_system/public/mojom",
++    ]
++  }
++
+   overridden_deps = [ "//third_party/blink/public/mojom:mojom_platform" ]
+   component_deps = [ "//third_party/blink/public/common" ]
+ }
+@@ -233,6 +245,13 @@ static_library("web_test_browser") {
+   if (is_fuchsia) {
+     deps += [ "//third_party/fuchsia-sdk/sdk/fidl/fuchsia.ui.scenic:fuchsia.ui.scenic_hlcpp" ]
+   }
++
++  if (is_cobalt) {
++    deps += [
++      "//cobalt/browser/h5vcc_runtime/public/mojom",
++      "//cobalt/testing/h5vcc_runtime:stub_h5vcc_runtime",
++    ]
++  }
+ }
+ 
+ # TODO(crbug.com/1154721): The `allow_circular_includes_from` declared in

@@ -1,0 +1,35 @@
+diff --git a/components/performance_manager/service_worker_context_adapter.cc b/components/performance_manager/service_worker_context_adapter.cc
+index 2d8c6d55b6062..73c16ad47db69 100644
+--- a/components/performance_manager/service_worker_context_adapter.cc
++++ b/components/performance_manager/service_worker_context_adapter.cc
+@@ -29,9 +29,11 @@ class ServiceWorkerContextAdapter::RunningServiceWorker
+   void Subscribe(content::RenderProcessHost* worker_process_host);
+   void Unsubscribe();
+ 
++  // content::RenderProcessHostObserver:
+   void RenderProcessExited(
+       content::RenderProcessHost* host,
+       const content::ChildProcessTerminationInfo& info) override;
++  void InProcessRendererExiting(content::RenderProcessHost* host) override;
+   void RenderProcessHostDestroyed(content::RenderProcessHost* host) override;
+ 
+  private:
+@@ -76,9 +78,17 @@ void ServiceWorkerContextAdapter::RunningServiceWorker::RenderProcessExited(
+   /* This object is deleted inside the above, don't touch "this". */
+ }
+ 
++void ServiceWorkerContextAdapter::RunningServiceWorker::
++    InProcessRendererExiting(content::RenderProcessHost* host) {
++  CHECK(content::RenderProcessHost::run_renderer_in_process());
++  adapter_->OnRenderProcessExited(version_id_);
++
++  /* This object is deleted inside the above, don't touch "this". */
++}
++
+ void ServiceWorkerContextAdapter::RunningServiceWorker::
+     RenderProcessHostDestroyed(content::RenderProcessHost* host) {
+-  NOTREACHED();
++  NOTREACHED_NORETURN();
+ }
+ 
+ // ServiceWorkerContextAdapter::RunningServiceWorker ---------------------------

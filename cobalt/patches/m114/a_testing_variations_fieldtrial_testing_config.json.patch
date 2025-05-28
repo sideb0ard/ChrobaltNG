@@ -1,0 +1,31 @@
+diff --git a/testing/variations/fieldtrial_testing_config.json b/testing/variations/fieldtrial_testing_config.json
+index 26103688d8cb9..11fbe0cca4bc9 100644
+--- a/testing/variations/fieldtrial_testing_config.json
++++ b/testing/variations/fieldtrial_testing_config.json
+@@ -8185,23 +8185,6 @@
+             ]
+         }
+     ],
+-    "MessagePumpEpoll": [
+-        {
+-            "platforms": [
+-                "android",
+-                "chromeos",
+-                "linux"
+-            ],
+-            "experiments": [
+-                {
+-                    "name": "Enabled",
+-                    "enable_features": [
+-                        "MessagePumpEpoll"
+-                    ]
+-                }
+-            ]
+-        }
+-    ],
+     "MessagesForAndroidOfferNotification": [
+         {
+             "platforms": [
+diff --git a/third_party/.gitattributes b/third_party/.gitattributes
+new file mode 100644
+index 0000000000000..054046e8826ed

@@ -1,0 +1,33 @@
+diff --git a/infra/config/subprojects/chromium/ci/chromium.coverage.star b/infra/config/subprojects/chromium/ci/chromium.coverage.star
+index 5af3734cc2ad7..ffbe2ce6bfb4e 100644
+--- a/infra/config/subprojects/chromium/ci/chromium.coverage.star
++++ b/infra/config/subprojects/chromium/ci/chromium.coverage.star
+@@ -90,13 +90,7 @@ coverage_builder(
+     builder_spec = builder_config.builder_spec(
+         gclient_config = builder_config.gclient_config(
+             config = "chromium",
+-            apply_configs = [
+-                "android",
+-                # This is necessary due to this builder running the
+-                # telemetry_perf_unittests suite.
+-                "chromium_with_telemetry_dependencies",
+-                "enable_wpr_tests",
+-            ],
++            apply_configs = ["android", "enable_wpr_tests"],
+         ),
+         chromium_config = builder_config.chromium_config(
+             config = "android",
+@@ -341,12 +335,7 @@ coverage_builder(
+     builder_spec = builder_config.builder_spec(
+         gclient_config = builder_config.gclient_config(
+             config = "chromium",
+-            apply_configs = [
+-                # This is necessary due to this builder running the
+-                # telemetry_perf_unittests suite.
+-                "chromium_with_telemetry_dependencies",
+-                "use_clang_coverage",
+-            ],
++            apply_configs = ["use_clang_coverage"],
+         ),
+         chromium_config = builder_config.chromium_config(
+             config = "chromium",

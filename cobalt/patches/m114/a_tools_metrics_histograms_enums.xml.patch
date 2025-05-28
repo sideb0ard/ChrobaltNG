@@ -1,0 +1,16 @@
+diff --git a/tools/metrics/histograms/enums.xml b/tools/metrics/histograms/enums.xml
+index cf788e89061e9..f456cc5023098 100644
+--- a/tools/metrics/histograms/enums.xml
++++ b/tools/metrics/histograms/enums.xml
+@@ -68501,6 +68501,8 @@ Called by update_use_counter_css.py.-->
+   <int value="9" label="kCastStreaming"/>
+   <int value="10" label="kContentEmbedderDefined"/>
+   <int value="11" label="kTest"/>
++<!-- Cobalt: Renderer for Starboard (SbPlayer) -->
++  <int value="12" label="kStarboard"/>
+ </enum>
+ 
+ <enum name="MediaResponseCacheType">
+diff --git a/tools/metrics/histograms/metadata/cobalt/enums.xml b/tools/metrics/histograms/metadata/cobalt/enums.xml
+new file mode 100644
+index 0000000000000..849a8b6f69a54

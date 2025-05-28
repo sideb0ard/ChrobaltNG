@@ -1,0 +1,26 @@
+diff --git a/base/task/current_thread.h b/base/task/current_thread.h
+index c7e113456e011..dd9eb369b6d99 100644
+--- a/base/task/current_thread.h
++++ b/base/task/current_thread.h
+@@ -189,7 +189,6 @@ class BASE_EXPORT CurrentThread {
+   static sequence_manager::internal::SequenceManagerImpl*
+   GetCurrentSequenceManagerImpl();
+ 
+-  friend class MessagePumpLibeventTest;
+   friend class ScheduleWorkTest;
+   friend class Thread;
+   friend class sequence_manager::internal::SequenceManagerImpl;
+@@ -213,11 +212,11 @@ class BASE_EXPORT CurrentUIThread : public CurrentThread {
+ 
+   CurrentUIThread* operator->() { return this; }
+ 
+-#if BUILDFLAG(IS_OZONE) && !BUILDFLAG(IS_FUCHSIA) && !BUILDFLAG(IS_WIN)
++#if BUILDFLAG(IS_OZONE) && !BUILDFLAG(IS_FUCHSIA) && !BUILDFLAG(IS_WIN) && !BUILDFLAG(IS_STARBOARD)
+   static_assert(
+       std::is_base_of<WatchableIOMessagePumpPosix, MessagePumpForUI>::value,
+       "CurrentThreadForUI::WatchFileDescriptor is supported only"
+-      "by MessagePumpLibevent and MessagePumpGlib implementations.");
++      "by MessagePumpEpoll and MessagePumpGlib implementations.");
+   bool WatchFileDescriptor(int fd,
+                            bool persistent,
+                            MessagePumpForUI::Mode mode,

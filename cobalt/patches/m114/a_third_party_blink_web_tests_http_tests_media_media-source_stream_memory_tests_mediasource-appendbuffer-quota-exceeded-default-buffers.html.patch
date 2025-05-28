@@ -1,0 +1,15 @@
+diff --git a/third_party/blink/web_tests/http/tests/media/media-source/stream_memory_tests/mediasource-appendbuffer-quota-exceeded-default-buffers.html b/third_party/blink/web_tests/http/tests/media/media-source/stream_memory_tests/mediasource-appendbuffer-quota-exceeded-default-buffers.html
+index 2e704f6478d9a..0b9a7d7f42e7d 100644
+--- a/third_party/blink/web_tests/http/tests/media/media-source/stream_memory_tests/mediasource-appendbuffer-quota-exceeded-default-buffers.html
++++ b/third_party/blink/web_tests/http/tests/media/media-source/stream_memory_tests/mediasource-appendbuffer-quota-exceeded-default-buffers.html
+@@ -12,8 +12,8 @@
+               var subType = MediaSourceUtil.getSubType(MediaSourceUtil.AUDIO_ONLY_TYPE);
+               var mediaDataManifest = subType + '/test-a-5min-44100Hz-1ch-manifest.json';
+               MediaSourceUtil.fillUpSourceBuffer(test, mediaSource, mediaDataManifest, function (appendedDataSize) { // onBufferFull
+-                  assert_greater_than(appendedDataSize, 12 * 1048576, "Appended more than 12MB of data");
+-                  assert_less_than(appendedDataSize, 14 * 1048576, "Appended less than 14MB of data");
++                  assert_greater_than(appendedDataSize, 2 * 1048576, "Appended more than 2MB of data");
++                  assert_less_than(appendedDataSize, 3 * 1048576, "Appended less than 3MB of data");
+                   test.done();
+               });
+           }, 'Appending data repeatedly should fill up the buffer and throw a QuotaExceededError when buffer is full.');

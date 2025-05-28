@@ -1,0 +1,17 @@
+diff --git a/ui/ozone/BUILD.gn b/ui/ozone/BUILD.gn
+index ef941b46493b9..5ece3c733348e 100644
+--- a/ui/ozone/BUILD.gn
++++ b/ui/ozone/BUILD.gn
+@@ -245,6 +245,12 @@ source_set("ozone_switches") {
+     "//media/mojo/services",
+     "//ui/display:display_unittests",
+   ]
++
++  if (is_cobalt) {
++    visibility += [
++      "//cobalt:*",
++    ]
++  }
+ }
+ 
+ component("ozone") {

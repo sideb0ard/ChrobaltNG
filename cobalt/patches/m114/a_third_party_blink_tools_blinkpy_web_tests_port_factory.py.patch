@@ -1,0 +1,17 @@
+diff --git a/third_party/blink/tools/blinkpy/web_tests/port/factory.py b/third_party/blink/tools/blinkpy/web_tests/port/factory.py
+index 991c3932e756c..09ceff5fbc66a 100644
+--- a/third_party/blink/tools/blinkpy/web_tests/port/factory.py
++++ b/third_party/blink/tools/blinkpy/web_tests/port/factory.py
+@@ -231,6 +231,12 @@ def _update_configuration_and_target(host, options):
+         options.configuration = gn_configuration
+         return
+ 
++    # Cobalt: Use value from flag, code below assumes default Chromium targets.
++    configuration = getattr(options, 'configuration', None)
++    if configuration:
++        options.configuration = configuration
++        return
++
+     if options.target in ('Debug', 'Debug_x64'):
+         options.configuration = 'Debug'
+     elif options.target in ('Release', 'Release_x64'):

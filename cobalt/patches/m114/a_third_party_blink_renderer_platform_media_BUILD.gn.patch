@@ -1,0 +1,36 @@
+diff --git a/third_party/blink/renderer/platform/media/BUILD.gn b/third_party/blink/renderer/platform/media/BUILD.gn
+index f679e9348ee0b..f751ce07278fa 100644
+--- a/third_party/blink/renderer/platform/media/BUILD.gn
++++ b/third_party/blink/renderer/platform/media/BUILD.gn
+@@ -3,6 +3,9 @@
+ # found in the LICENSE file.
+ 
+ import("//media/media_options.gni")
++if (is_cobalt) {
++  import("//starboard/build/buildflags.gni")
++}
+ 
+ # TODO(https://crbug.com/1198341): use blink_platform_sources once the code is
+ # ported to Blink code conventions.
+@@ -81,7 +84,7 @@ component("media") {
+     "//third_party/blink/renderer/platform:allow_discouraged_type",
+   ]
+ 
+-  if (media_use_ffmpeg || !is_android) {
++  if (media_use_ffmpeg || !is_android || is_cobalt) {
+     sources += [
+       "buffered_data_source_host_impl.cc",
+       "buffered_data_source_host_impl.h",
+@@ -112,6 +115,12 @@ component("media") {
+       "hls_data_source_provider_impl.h",
+     ]
+   }
++
++  if (is_cobalt && use_starboard_media) {
++    deps += [
++      "//starboard:starboard_group",
++    ]
++  }
+ }
+ 
+ source_set("unit_tests") {

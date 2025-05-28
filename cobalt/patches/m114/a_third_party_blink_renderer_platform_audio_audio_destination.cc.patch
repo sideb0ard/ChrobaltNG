@@ -1,0 +1,52 @@
+diff --git a/third_party/blink/renderer/platform/audio/audio_destination.cc b/third_party/blink/renderer/platform/audio/audio_destination.cc
+index 40a686a4e232a..59b5d9882ed9b 100644
+--- a/third_party/blink/renderer/platform/audio/audio_destination.cc
++++ b/third_party/blink/renderer/platform/audio/audio_destination.cc
+@@ -49,6 +49,9 @@
+ #include "third_party/blink/renderer/platform/wtf/cross_thread_copier_base.h"
+ #include "third_party/blink/renderer/platform/wtf/cross_thread_functional.h"
+ 
++// For BUILDFLAG(USE_STARBOARD_MEDIA)
++#include "build/build_config.h"
++
+ namespace blink {
+ 
+ namespace {
+@@ -59,7 +62,13 @@ namespace {
+ // that we would ever need. The current UMA stats indicates that this is, in
+ // fact, probably too small. There are Android devices out there with a size of
+ // 8000 or so.  We might need to make this larger. See: crbug.com/670747
++#if BUILDFLAG(IS_COBALT)
++// TODO(b/376903291): The change will not be needed after we rebase to m126 or
++// later version.
++constexpr uint32_t kFIFOSize = 128 * 128;
++#else   // BUILDFLAG(IS_COBALT)
+ constexpr uint32_t kFIFOSize = 96 * 128;
++#endif  // BUILDFLAG(IS_COBALT)
+ 
+ const char* DeviceStateToString(AudioDestination::DeviceState state) {
+   switch (state) {
+@@ -307,9 +316,10 @@ AudioDestination::AudioDestination(
+           context_sample_rate.has_value()
+               ? context_sample_rate.value()
+               : (web_audio_device_ ? web_audio_device_->SampleRate() : 0)),
+-      fifo_(std::make_unique<PushPullFIFO>(number_of_output_channels,
+-                                           kFIFOSize,
+-                                           render_quantum_frames)),
++      fifo_(std::make_unique<PushPullFIFO>(
++          number_of_output_channels,
++          std::max(kFIFOSize, callback_buffer_size_ + render_quantum_frames),
++          render_quantum_frames)),
+       output_bus_(AudioBus::Create(number_of_output_channels,
+                                    render_quantum_frames,
+                                    false)),
+@@ -346,9 +356,6 @@ AudioDestination::AudioDestination(
+     fifo_->Push(render_bus_.get());
+   }
+ 
+-  // Check if the requested buffer size is too large.
+-  DCHECK_LE(callback_buffer_size_ + render_quantum_frames, kFIFOSize);
+-
+   double scale_factor = 1.0;
+ 
+   if (context_sample_rate_ != web_audio_device_->SampleRate()) {

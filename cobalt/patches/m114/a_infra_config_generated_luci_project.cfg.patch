@@ -1,0 +1,13 @@
+diff --git a/infra/config/generated/luci/project.cfg b/infra/config/generated/luci/project.cfg
+index 540cc23b4eb58..4c709fc73e745 100644
+--- a/infra/config/generated/luci/project.cfg
++++ b/infra/config/generated/luci/project.cfg
+@@ -7,7 +7,7 @@
+ name: "chromium-m114"
+ access: "group:all"
+ lucicfg {
+-  version: "1.43.5"
++  version: "1.43.3"
+   package_dir: "../.."
+   config_dir: "generated/luci"
+   entry_point: "main.star"

@@ -1,0 +1,15 @@
+diff --git a/content/public/renderer/BUILD.gn b/content/public/renderer/BUILD.gn
+index 4c16e493b22d9..a04ade6720f23 100644
+--- a/content/public/renderer/BUILD.gn
++++ b/content/public/renderer/BUILD.gn
+@@ -6,6 +6,10 @@ import("//build/config/features.gni")
+ import("//media/media_options.gni")
+ import("//ppapi/buildflags/buildflags.gni")
+ 
++if (is_cobalt) {
++  import("//starboard/build/buildflags.gni")
++}
++
+ # See //content/BUILD.gn for how this works.
+ group("renderer") {
+   if (is_component_build) {

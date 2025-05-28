@@ -1,0 +1,36 @@
+diff --git a/media/base/media_client.h b/media/base/media_client.h
+index fd22d95e89c76..aade6206ecc81 100644
+--- a/media/base/media_client.h
++++ b/media/base/media_client.h
+@@ -19,6 +19,10 @@
+ #include "ui/gfx/color_space.h"
+ #include "url/gurl.h"
+ 
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++#include "media/starboard/decoder_buffer_allocator.h"
++#endif // BUILDFLAG(USE_STARBOARD_MEDIA)
++
+ namespace media {
+ 
+ class MediaClient;
+@@ -56,6 +60,20 @@ class MEDIA_EXPORT MediaClient {
+   // Optionally returns audio renderer algorithm parameters.
+   virtual absl::optional<::media::AudioRendererAlgorithmParameters>
+   GetAudioRendererAlgorithmParameters(AudioParameters audio_parameters) = 0;
++
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++  static uint64_t GetMediaSourceMaximumMemoryCapacity();
++  static uint64_t GetMediaSourceCurrentMemoryCapacity();
++  static uint64_t GetMediaSourceTotalAllocatedMemory();
++
++  uint64_t GetMaximumMemoryCapacity() const;
++  uint64_t GetCurrentMemoryCapacity() const;
++  uint64_t GetAllocatedMemory() const;
++
++ private:
++  // TODO(b/326497953): Support Suspend() and Resume().
++  DecoderBufferAllocator decoder_buffer_allocator_;
++#endif // BUILDFLAG(USE_STARBOARD_MEDIA)
+ };
+ 
+ }  // namespace media

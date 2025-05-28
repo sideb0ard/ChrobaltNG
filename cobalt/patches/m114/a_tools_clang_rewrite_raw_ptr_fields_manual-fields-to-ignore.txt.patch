@@ -1,0 +1,14 @@
+diff --git a/tools/clang/rewrite_raw_ptr_fields/manual-fields-to-ignore.txt b/tools/clang/rewrite_raw_ptr_fields/manual-fields-to-ignore.txt
+index af014c2295c04..fa1e7bbbf287d 100644
+--- a/tools/clang/rewrite_raw_ptr_fields/manual-fields-to-ignore.txt
++++ b/tools/clang/rewrite_raw_ptr_fields/manual-fields-to-ignore.txt
+@@ -363,8 +363,8 @@ LinkNodeBase::previous_
+ WeakLinkNode::list_
+ base::Location::program_counter_
+ base::MessagePump::Delegate::ScopedDoWorkItem::outer_
+-base::MessagePumpLibevent::RunState::delegate
+ base::internal::OperationsController::OperationToken::outer_
++base::MessagePumpEpoll::RunState::delegate
+ base::internal::SequenceLocalStorageMap::ValueDestructorPair::destructor_
+ base::internal::SequenceLocalStorageMap::ValueDestructorPair::value_
+ base::internal::TaskDestructionDetector::timer_

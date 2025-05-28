@@ -1,0 +1,15 @@
+diff --git a/buildtools/reclient_cfgs/fetch_reclient_cfgs.py b/buildtools/reclient_cfgs/fetch_reclient_cfgs.py
+index 98c8290db1898..baed7076a0417 100755
+--- a/buildtools/reclient_cfgs/fetch_reclient_cfgs.py
++++ b/buildtools/reclient_cfgs/fetch_reclient_cfgs.py
+@@ -134,6 +134,10 @@ def main():
+             return 1
+         if not GenerateReproxyCfg(args.reproxy_cfg_template, args.rbe_instance):
+            return 1
++# COBALT Disables CIPD fetch of rewrapper configs in favor of local rewrapper configs.
++        return 0
++    return 1
++# COBALT END
+ 
+     if not args.rewrapper_cfg_project and not args.rbe_instance:
+         logging.error(

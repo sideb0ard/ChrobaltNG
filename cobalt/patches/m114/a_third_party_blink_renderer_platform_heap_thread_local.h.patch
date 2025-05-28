@@ -1,0 +1,13 @@
+diff --git a/third_party/blink/renderer/platform/heap/thread_local.h b/third_party/blink/renderer/platform/heap/thread_local.h
+index e0519b0982e43..d3dda530914d5 100644
+--- a/third_party/blink/renderer/platform/heap/thread_local.h
++++ b/third_party/blink/renderer/platform/heap/thread_local.h
+@@ -38,7 +38,7 @@
+ #else
+ #if BUILDFLAG(IS_WIN)
+ #define BLINK_HEAP_THREAD_LOCAL_MODEL "initial-exec"
+-#elif BUILDFLAG(IS_ANDROID)
++#elif BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_STARBOARD)
+ #define BLINK_HEAP_THREAD_LOCAL_MODEL "local-dynamic"
+ #else
+ #define BLINK_HEAP_THREAD_LOCAL_MODEL "local-exec"

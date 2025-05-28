@@ -1,0 +1,31 @@
+diff --git a/content/renderer/BUILD.gn b/content/renderer/BUILD.gn
+index 487c06de8be47..b1e2106ab3f63 100644
+--- a/content/renderer/BUILD.gn
++++ b/content/renderer/BUILD.gn
+@@ -192,6 +192,13 @@ target(link_target_type, "renderer") {
+     ]
+   }
+ 
++  if (is_cobalt) {
++    sources -= [
++      "media/audio_decoder.cc",
++      "media/audio_decoder.h",
++    ]
++  }
++
+   if (is_linux || is_chromeos) {
+     sources += [
+       "renderer_main_platform_delegate_linux.cc",
+@@ -330,6 +337,12 @@ target(link_target_type, "renderer") {
+   ]
+   allow_circular_includes_from = []
+ 
++  if (is_cobalt) {
++    deps += [
++      "//cobalt/media/audio:audio_decoder",
++    ]
++  }
++
+   if (is_android) {
+     deps += [
+       "//components/power_scheduler",

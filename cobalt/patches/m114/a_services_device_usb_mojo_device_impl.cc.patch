@@ -1,0 +1,64 @@
+diff --git a/services/device/usb/mojo/device_impl.cc b/services/device/usb/mojo/device_impl.cc
+index a44cb3b262203..34cc1f360a034 100644
+--- a/services/device/usb/mojo/device_impl.cc
++++ b/services/device/usb/mojo/device_impl.cc
+@@ -19,7 +19,6 @@
+ #include "base/ranges/algorithm.h"
+ #include "services/device/public/cpp/usb/usb_utils.h"
+ #include "services/device/usb/usb_device.h"
+-#include "third_party/abseil-cpp/absl/types/optional.h"
+ 
+ namespace device {
+ 
+@@ -90,20 +89,6 @@ bool IsAndroidSecurityKeyRequest(
+          memcmp(data.data(), magic, strlen(magic)) == 0;
+ }
+ 
+-// Returns the sum of `packet_lengths`, or nullopt if the sum would overflow.
+-absl::optional<uint32_t> TotalPacketLength(
+-    base::span<const uint32_t> packet_lengths) {
+-  uint32_t total_bytes = 0;
+-  for (const uint32_t packet_length : packet_lengths) {
+-    // Check for overflow.
+-    if (std::numeric_limits<uint32_t>::max() - total_bytes < packet_length) {
+-      return absl::nullopt;
+-    }
+-    total_bytes += packet_length;
+-  }
+-  return total_bytes;
+-}
+-
+ }  // namespace
+ 
+ // static
+@@ -412,15 +397,6 @@ void DeviceImpl::IsochronousTransferIn(
+     return;
+   }
+ 
+-  absl::optional<uint32_t> total_bytes = TotalPacketLength(packet_lengths);
+-  if (!total_bytes.has_value()) {
+-    mojo::ReportBadMessage("Invalid isochronous packet lengths.");
+-    std::move(callback).Run(
+-        {}, BuildIsochronousPacketArray(
+-                packet_lengths, mojom::UsbTransferStatus::TRANSFER_ERROR));
+-    return;
+-  }
+-
+   uint8_t endpoint_address = endpoint_number | 0x80;
+   device_handle_->IsochronousTransferIn(
+       endpoint_address, packet_lengths, timeout,
+@@ -439,14 +415,6 @@ void DeviceImpl::IsochronousTransferOut(
+     return;
+   }
+ 
+-  absl::optional<uint32_t> total_bytes = TotalPacketLength(packet_lengths);
+-  if (!total_bytes.has_value() || total_bytes.value() != data.size()) {
+-    mojo::ReportBadMessage("Invalid isochronous packet lengths.");
+-    std::move(callback).Run(BuildIsochronousPacketArray(
+-        packet_lengths, mojom::UsbTransferStatus::TRANSFER_ERROR));
+-    return;
+-  }
+-
+   uint8_t endpoint_address = endpoint_number;
+   auto buffer = base::MakeRefCounted<base::RefCountedBytes>(data);
+   device_handle_->IsochronousTransferOut(

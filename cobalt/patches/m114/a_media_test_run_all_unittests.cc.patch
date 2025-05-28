@@ -1,0 +1,27 @@
+diff --git a/media/test/run_all_unittests.cc b/media/test/run_all_unittests.cc
+index 13ad0c6fee580..bcb7aa0a9ab17 100644
+--- a/media/test/run_all_unittests.cc
++++ b/media/test/run_all_unittests.cc
+@@ -17,6 +17,10 @@
+ #include "media/base/android/media_codec_util.h"
+ #endif
+ 
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++#include "media/starboard/decoder_buffer_allocator.h"
++#endif // BUILDFLAG(USE_STARBOARD_MEDIA)
++
+ class TestSuiteNoAtExit : public base::TestSuite {
+  public:
+   TestSuiteNoAtExit(int argc, char** argv) : TestSuite(argc, argv) {}
+@@ -27,6 +31,11 @@ class TestSuiteNoAtExit : public base::TestSuite {
+ 
+  private:
+   base::TestDiscardableMemoryAllocator discardable_memory_allocator_;
++
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++  // Defining starboard decoder buffer allocator makes DecoderBuffer use it.
++  media::DecoderBufferAllocator decoder_buffer_allocator_;
++#endif // BUILDFLAG(USE_STARBOARD_MEDIA)
+ };
+ 
+ void TestSuiteNoAtExit::Initialize() {

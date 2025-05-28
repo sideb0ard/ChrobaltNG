@@ -1,0 +1,13 @@
+diff --git a/third_party/rust/winapi/v0_3/BUILD.gn b/third_party/rust/winapi/v0_3/BUILD.gn
+index f7edafac06ae7..7aaf0f4012a71 100644
+--- a/third_party/rust/winapi/v0_3/BUILD.gn
++++ b/third_party/rust/winapi/v0_3/BUILD.gn
+@@ -30,8 +30,6 @@ cargo_crate("lib") {
+     "consoleapi",
+     "errhandlingapi",
+     "fileapi",
+-    "handleapi",
+-    "minwinbase",
+     "minwindef",
+     "processenv",
+     "std",

@@ -1,0 +1,18 @@
+diff --git a/base/threading/hang_watcher.h b/base/threading/hang_watcher.h
+index 4edf4284b9fe2..65232fd07602a 100644
+--- a/base/threading/hang_watcher.h
++++ b/base/threading/hang_watcher.h
+@@ -126,7 +126,13 @@ class BASE_EXPORT HangWatcher : public DelegateSimpleThread::Delegate {
+     kIOThread = 0,
+     kMainThread = 1,
+     kThreadPoolThread = 2,
++#if BUILDFLAG(IS_COBALT)
++    // this is used in single-process mode only, inside browser process
++    kRendererThread = 3,
++    kMax = kRendererThread
++#else
+     kMax = kThreadPoolThread
++#endif
+   };
+ 
+   // Notes on lifetime:

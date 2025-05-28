@@ -1,0 +1,13 @@
+diff --git a/services/network/network_change_manager.cc b/services/network/network_change_manager.cc
+index 6571018557860..c652f83869119 100644
+--- a/services/network/network_change_manager.cc
++++ b/services/network/network_change_manager.cc
+@@ -81,7 +81,7 @@ void NetworkChangeManager::OnNetworkChanged(
+ }
+ #endif
+ 
+-#if BUILDFLAG(IS_LINUX)
++#if BUILDFLAG(IS_LINUX) && !BUILDFLAG(IS_COBALT_HERMETIC_BUILD)
+ void NetworkChangeManager::BindNetworkInterfaceChangeListener(
+     mojo::PendingAssociatedReceiver<mojom::NetworkInterfaceChangeListener>
+         listener_receiver) {

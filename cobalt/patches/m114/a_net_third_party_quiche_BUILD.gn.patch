@@ -1,0 +1,13 @@
+diff --git a/net/third_party/quiche/BUILD.gn b/net/third_party/quiche/BUILD.gn
+index 35a1e38408349..9298dd6edca78 100644
+--- a/net/third_party/quiche/BUILD.gn
++++ b/net/third_party/quiche/BUILD.gn
+@@ -28,7 +28,7 @@ import("//build/config/chromeos/ui_mode.gni")
+ import("//testing/libfuzzer/fuzzer_test.gni")
+ import("//third_party/protobuf/proto_library.gni")
+ 
+-build_epoll_based_tools = is_linux || is_chromeos
++build_epoll_based_tools = (is_linux && !is_starboard) || is_chromeos
+ 
+ config("quiche_internal_config") {
+   cflags = []

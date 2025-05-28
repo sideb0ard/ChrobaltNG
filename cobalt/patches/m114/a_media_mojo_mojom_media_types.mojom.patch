@@ -1,0 +1,22 @@
+diff --git a/media/mojo/mojom/media_types.mojom b/media/mojo/mojom/media_types.mojom
+index 71336585acfb8..89829e98895dc 100644
+--- a/media/mojo/mojom/media_types.mojom
++++ b/media/mojo/mojom/media_types.mojom
+@@ -257,6 +257,10 @@ struct DecoderBuffer {
+   // These fields indicate the amount of data to discard after decoding.
+   mojo_base.mojom.TimeDelta front_discard;
+   mojo_base.mojom.TimeDelta back_discard;
++
++  [EnableIf=use_starboard_media]
++  // This stores the address of DecoderBuffer.
++  uint64 address;
+ };
+ 
+ // This defines a mojo transport format for media::AudioBuffer.
+@@ -535,4 +539,6 @@ enum RendererType {
+   kCastStreaming = 9,    // CastStreamingRendererFactory
+   kContentEmbedderDefined = 10,  // Defined by the content embedder
+   kTest= 11,             // Renderer implementations used in tests
++  [EnableIf=use_starboard_media]
++  kStarboard = 12,       // StarboardRendererFactory
+ };

@@ -1,0 +1,14 @@
+diff --git a/third_party/blink/renderer/core/events/event_type_names.json5 b/third_party/blink/renderer/core/events/event_type_names.json5
+index aa2c8bdd5c32d..96e618e5da36b 100644
+--- a/third_party/blink/renderer/core/events/event_type_names.json5
++++ b/third_party/blink/renderer/core/events/event_type_names.json5
+@@ -364,5 +364,9 @@
+     "writeend",
+     "writestart",
+     "zoom",
++    # TODO(cobalt, b/400518318): "Extract Cobalt event to separate file"
++    "deeplink",
++    "metrics",
++    "texttospeechchange",
+   ],
+ }

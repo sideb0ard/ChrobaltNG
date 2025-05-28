@@ -1,0 +1,17 @@
+diff --git a/content/renderer/renderer_blink_platform_impl.h b/content/renderer/renderer_blink_platform_impl.h
+index 0067dcb8b5c6b..25a66b13cdc0c 100644
+--- a/content/renderer/renderer_blink_platform_impl.h
++++ b/content/renderer/renderer_blink_platform_impl.h
+@@ -233,6 +233,12 @@ class CONTENT_EXPORT RendererBlinkPlatformImpl : public BlinkPlatformImpl {
+   // plus eTLD+1, such as https://google.com), or to a more specific origin.
+   void SetIsLockedToSite();
+ 
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++  virtual uint64_t GetMediaSourceMaximumMemoryCapacity() const override;
++  virtual uint64_t GetMediaSourceCurrentMemoryCapacity() const override;
++  virtual uint64_t GetMediaSourceTotalAllocatedMemory() const override;
++#endif  // BUILDFLAG(USE_STARBOARD_MEDIA)
++
+  private:
+   bool CheckPreparsedJsCachingEnabled() const;
+ 

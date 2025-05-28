@@ -1,0 +1,12 @@
+diff --git a/third_party/rust/libc/v0_2/BUILD.gn b/third_party/rust/libc/v0_2/BUILD.gn
+index 86ff5175e0bd4..02210f81d7c9a 100644
+--- a/third_party/rust/libc/v0_2/BUILD.gn
++++ b/third_party/rust/libc/v0_2/BUILD.gn
+@@ -26,7 +26,6 @@ cargo_crate("lib") {
+   library_configs += [ "//build/config/compiler:no_chromium_code" ]
+   executable_configs -= [ "//build/config/compiler:chromium_code" ]
+   executable_configs += [ "//build/config/compiler:no_chromium_code" ]
+-  features = [ "std" ]
+   build_root = "crate/build.rs"
+   build_sources = [ "crate/build.rs" ]
+ }

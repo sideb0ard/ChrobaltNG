@@ -1,0 +1,28 @@
+diff --git a/media/mojo/BUILD.gn b/media/mojo/BUILD.gn
+index 9a373740a355c..332303a6c609e 100644
+--- a/media/mojo/BUILD.gn
++++ b/media/mojo/BUILD.gn
+@@ -7,6 +7,10 @@ import("//build/config/chromecast_build.gni")
+ import("//media/media_options.gni")
+ import("//testing/test.gni")
+ 
++if (is_cobalt) {
++  import("//starboard/build/buildflags.gni")
++}
++
+ buildflag_header("buildflags") {
+   header = "buildflags.h"
+ 
+@@ -46,6 +50,12 @@ buildflag_header("buildflags") {
+     assert(false, "Invalid mojo media host: $mojo_media_host")
+   }
+ 
++  if (is_cobalt && use_starboard_media) {
++    assert(mojo_media_host == "gpu", "Use mojo media service hosted in the gpu process")
++    assert(enable_mojo_renderer, "StarboardRenderer works as MojoRenderer")
++    assert(enable_mojo_cdm, "StarboardCdm works as MojoCdm")
++  }
++
+   flags = [
+     "ENABLE_CAST_RENDERER=$enable_cast_renderer",
+     "ENABLE_MOJO_RENDERER=$enable_mojo_renderer",

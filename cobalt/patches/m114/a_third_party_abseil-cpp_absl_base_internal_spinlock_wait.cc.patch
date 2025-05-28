@@ -1,0 +1,17 @@
+diff --git a/third_party/abseil-cpp/absl/base/internal/spinlock_wait.cc b/third_party/abseil-cpp/absl/base/internal/spinlock_wait.cc
+index fa824be1c008c..c990f219742a8 100644
+--- a/third_party/abseil-cpp/absl/base/internal/spinlock_wait.cc
++++ b/third_party/abseil-cpp/absl/base/internal/spinlock_wait.cc
+@@ -20,10 +20,11 @@
+ #include <cstdint>
+ 
+ #include "absl/base/internal/spinlock_wait.h"
++#include "build/build_config.h"
+ 
+ #if defined(_WIN32)
+ #include "absl/base/internal/spinlock_win32.inc"
+-#elif defined(__linux__)
++#elif defined(__linux__) && !BUILDFLAG(IS_COBALT_HERMETIC_BUILD)
+ #include "absl/base/internal/spinlock_linux.inc"
+ #elif defined(__akaros__)
+ #include "absl/base/internal/spinlock_akaros.inc"

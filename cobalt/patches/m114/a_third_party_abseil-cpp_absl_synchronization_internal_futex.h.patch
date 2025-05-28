@@ -1,0 +1,24 @@
+diff --git a/third_party/abseil-cpp/absl/synchronization/internal/futex.h b/third_party/abseil-cpp/absl/synchronization/internal/futex.h
+index 55078f14c0e13..dec2ed54a036b 100644
+--- a/third_party/abseil-cpp/absl/synchronization/internal/futex.h
++++ b/third_party/abseil-cpp/absl/synchronization/internal/futex.h
+@@ -15,16 +15,19 @@
+ #define ABSL_SYNCHRONIZATION_INTERNAL_FUTEX_H_
+ 
+ #include "absl/base/config.h"
++#include "build/build_config.h"
+ 
+ #ifndef _WIN32
+ #include <sys/time.h>
+ #include <unistd.h>
+ #endif
+ 
++#if !BUILDFLAG(IS_COBALT_HERMETIC_BUILD)
+ #ifdef __linux__
+ #include <linux/futex.h>
+ #include <sys/syscall.h>
+ #endif
++#endif // !BUILDFLAG(IS_COBALT_HERMETIC_BUILD)
+ 
+ #include <errno.h>
+ #include <stdio.h>

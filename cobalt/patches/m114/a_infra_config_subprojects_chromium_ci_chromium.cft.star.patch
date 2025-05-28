@@ -1,0 +1,56 @@
+diff --git a/infra/config/subprojects/chromium/ci/chromium.cft.star b/infra/config/subprojects/chromium/ci/chromium.cft.star
+index 94216424c9315..42aa502e114dd 100644
+--- a/infra/config/subprojects/chromium/ci/chromium.cft.star
++++ b/infra/config/subprojects/chromium/ci/chromium.cft.star
+@@ -22,14 +22,10 @@ ci.defaults.set(
+     service_account = ci.DEFAULT_SERVICE_ACCOUNT,
+ )
+ 
+-def builder_spec(*, target_platform, build_config, is_arm64 = False, additional_configs = None):
+-    additional_configs = additional_configs or []
+-    if is_arm64:
+-        additional_configs.append("arm64")
++def builder_spec(*, target_platform, build_config):
+     return builder_config.builder_spec(
+         gclient_config = builder_config.gclient_config(
+             config = "chromium",
+-            apply_configs = additional_configs,
+         ),
+         chromium_config = builder_config.chromium_config(
+             config = "chromium",
+@@ -49,11 +45,6 @@ ci.builder(
+     builder_spec = builder_spec(
+         build_config = builder_config.build_config.RELEASE,
+         target_platform = builder_config.target_platform.MAC,
+-        additional_configs = [
+-            # This is necessary due to this builder running the
+-            # telemetry_perf_unittests suite.
+-            "chromium_with_telemetry_dependencies",
+-        ],
+     ),
+     cores = None,
+     os = os.MAC_DEFAULT,
+@@ -67,11 +58,6 @@ ci.builder(
+     builder_spec = builder_spec(
+         build_config = builder_config.build_config.RELEASE,
+         target_platform = builder_config.target_platform.LINUX,
+-        additional_configs = [
+-            # This is necessary due to this builder running the
+-            # telemetry_perf_unittests suite.
+-            "chromium_with_telemetry_dependencies",
+-        ],
+     ),
+     os = os.LINUX_DEFAULT,
+     console_view_entry = consoles.console_view_entry(
+@@ -84,11 +70,6 @@ ci.builder(
+     builder_spec = builder_spec(
+         build_config = builder_config.build_config.RELEASE,
+         target_platform = builder_config.target_platform.WIN,
+-        additional_configs = [
+-            # This is necessary due to this builder running the
+-            # telemetry_perf_unittests suite.
+-            "chromium_with_telemetry_dependencies",
+-        ],
+     ),
+     os = os.WINDOWS_DEFAULT,
+     console_view_entry = consoles.console_view_entry(

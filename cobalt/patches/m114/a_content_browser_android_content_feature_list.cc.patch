@@ -1,0 +1,12 @@
+diff --git a/content/browser/android/content_feature_list.cc b/content/browser/android/content_feature_list.cc
+index becd3e95998d6..1b942e94abe9d 100644
+--- a/content/browser/android/content_feature_list.cc
++++ b/content/browser/android/content_feature_list.cc
+@@ -41,6 +41,7 @@ const base::Feature* const kFeaturesExposedToJava[] = {
+     &features::kWebAuthnTouchToFillCredentialSelection,
+     &features::kWebBluetoothNewPermissionsBackend,
+     &features::kWebNfc,
++    &features::kDoNotGenerateChromiumA11yTree,
+ };
+ 
+ const base::Feature* FindFeatureExposedToJava(const std::string& feature_name) {

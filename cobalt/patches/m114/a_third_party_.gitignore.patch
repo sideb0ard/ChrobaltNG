@@ -1,0 +1,12 @@
+diff --git a/third_party/.gitignore b/third_party/.gitignore
+index 9978d8b8756ed..6e379cd10156b 100644
+--- a/third_party/.gitignore
++++ b/third_party/.gitignore
+@@ -291,7 +291,6 @@
+ /webgl/src
+ /webgpu-cts/src
+ /webpagereplay
+-/webrtc
+ /weston/src
+ /widevine/cdm/chromeos
+ /widevine/cdm/linux

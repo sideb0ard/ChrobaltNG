@@ -1,0 +1,13 @@
+diff --git a/mojo/core/BUILD.gn b/mojo/core/BUILD.gn
+index 36d2d8bab6dea..7c44346a22ed7 100644
+--- a/mojo/core/BUILD.gn
++++ b/mojo/core/BUILD.gn
+@@ -166,7 +166,7 @@ template("core_impl_source_set") {
+         ]
+       }
+ 
+-      if ((is_linux || is_chromeos || is_android) && !is_nacl) {
++      if ((is_linux || is_chromeos || is_android) && !is_nacl && !is_starboard) {
+         sources += [
+           "channel_linux.cc",
+           "channel_linux.h",

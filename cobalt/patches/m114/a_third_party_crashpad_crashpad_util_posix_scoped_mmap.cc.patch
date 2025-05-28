@@ -1,0 +1,22 @@
+diff --git a/third_party/crashpad/crashpad/util/posix/scoped_mmap.cc b/third_party/crashpad/crashpad/util/posix/scoped_mmap.cc
+index b9b42480967cc..e256daa25ba05 100644
+--- a/third_party/crashpad/crashpad/util/posix/scoped_mmap.cc
++++ b/third_party/crashpad/crashpad/util/posix/scoped_mmap.cc
+@@ -28,7 +28,7 @@
+ 
+ // TODO(crbug.com/1052397): Revisit once build flag switch of lacros-chrome is
+ // complete.
+-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS)
++#if BUILDFLAG(IS_LINUX) && !BUILDFLAG(IS_COBALT_HERMETIC_BUILD) || BUILDFLAG(IS_CHROMEOS_LACROS)
+ #include "third_party/lss/lss.h"
+ #endif
+ 
+@@ -36,7 +36,7 @@ namespace {
+ 
+ // TODO(crbug.com/1052397): Revisit once build flag switch of lacros-chrome is
+ // complete.
+-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS)
++#if BUILDFLAG(IS_LINUX) && !BUILDFLAG(IS_COBALT_HERMETIC_BUILD) || BUILDFLAG(IS_CHROMEOS_LACROS)
+ void* CallMmap(void* addr,
+                size_t len,
+                int prot,

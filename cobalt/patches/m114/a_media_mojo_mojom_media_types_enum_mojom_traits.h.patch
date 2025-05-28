@@ -1,0 +1,27 @@
+diff --git a/media/mojo/mojom/media_types_enum_mojom_traits.h b/media/mojo/mojom/media_types_enum_mojom_traits.h
+index 237b91b97bba6..8d3d07461b3aa 100644
+--- a/media/mojo/mojom/media_types_enum_mojom_traits.h
++++ b/media/mojo/mojom/media_types_enum_mojom_traits.h
+@@ -315,6 +315,10 @@ struct EnumTraits<media::mojom::RendererType, ::media::RendererType> {
+         return media::mojom::RendererType::kContentEmbedderDefined;
+       case ::media::RendererType::kTest:
+         return media::mojom::RendererType::kTest;
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++      case ::media::RendererType::kStarboard:
++        return media::mojom::RendererType::kStarboard;
++#endif // BUILDFLAG(USE_STARBOARD_MEDIA)
+     }
+ 
+     NOTREACHED();
+@@ -359,6 +363,11 @@ struct EnumTraits<media::mojom::RendererType, ::media::RendererType> {
+       case media::mojom::RendererType::kTest:
+         *output = ::media::RendererType::kTest;
+         return true;
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++      case media::mojom::RendererType::kStarboard:
++        *output = ::media::RendererType::kStarboard;
++        return true;
++#endif // BUILDFLAG(USE_STARBOARD_MEDIA)
+     }
+ 
+     NOTREACHED();

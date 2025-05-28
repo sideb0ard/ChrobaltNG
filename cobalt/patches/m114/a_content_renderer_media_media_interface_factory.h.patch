@@ -1,0 +1,21 @@
+diff --git a/content/renderer/media/media_interface_factory.h b/content/renderer/media/media_interface_factory.h
+index aa1c67e0b0971..0694053df3671 100644
+--- a/content/renderer/media/media_interface_factory.h
++++ b/content/renderer/media/media_interface_factory.h
+@@ -83,6 +83,16 @@ class MediaInterfaceFactory final : public media::mojom::InterfaceFactory {
+       mojo::PendingRemote<media::mojom::MediaFoundationRendererClientExtension>
+           client_extension_remote) final;
+ #endif  // BUILDFLAG(IS_WIN)
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++  void CreateStarboardRenderer(
++      mojo::PendingRemote<media::mojom::MediaLog> media_log_remote,
++      const media::StarboardRendererConfig& config,
++      mojo::PendingReceiver<media::mojom::Renderer> receiver,
++      mojo::PendingReceiver<media::mojom::StarboardRendererExtension>
++        renderer_extension_receiver,
++      mojo::PendingRemote<media::mojom::StarboardRendererClientExtension>
++          client_extension_remote) final;
++#endif  // BUILDFLAG(USE_STARBOARD_MEDIA)
+   void CreateCdm(const media::CdmConfig& cdm_config,
+                  CreateCdmCallback callback) final;
+ 

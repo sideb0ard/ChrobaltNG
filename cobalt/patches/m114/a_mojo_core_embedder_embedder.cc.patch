@@ -1,0 +1,13 @@
+diff --git a/mojo/core/embedder/embedder.cc b/mojo/core/embedder/embedder.cc
+index da19df4f20b5d..99eaede0e1c5e 100644
+--- a/mojo/core/embedder/embedder.cc
++++ b/mojo/core/embedder/embedder.cc
+@@ -57,7 +57,7 @@ void InitFeatures() {
+   Channel::set_posix_use_writev(
+       base::FeatureList::IsEnabled(kMojoPosixUseWritev));
+ 
+-#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_ANDROID)
++#if BUILDFLAG(IS_LINUX) && !BUILDFLAG(IS_STARBOARD) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_ANDROID)
+   bool shared_mem_enabled =
+       base::FeatureList::IsEnabled(kMojoLinuxChannelSharedMem);
+   bool use_zero_on_wake = kMojoLinuxChannelSharedMemEfdZeroOnWake.Get();

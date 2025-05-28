@@ -1,0 +1,15 @@
+diff --git a/content/test/sandbox_status_service.cc b/content/test/sandbox_status_service.cc
+index dae9dabba75af..8e2f0a42a149d 100644
+--- a/content/test/sandbox_status_service.cc
++++ b/content/test/sandbox_status_service.cc
+@@ -21,8 +21,10 @@ SandboxStatusService::SandboxStatusService() = default;
+ SandboxStatusService::~SandboxStatusService() = default;
+ 
+ void SandboxStatusService::GetSandboxStatus(GetSandboxStatusCallback callback) {
++#if !BUILDFLAG(IS_STARBOARD)
+   std::move(callback).Run(
+       sandbox::policy::SandboxLinux::GetInstance()->GetStatus());
++#endif
+ }
+ 
+ }  // namespace content

@@ -1,0 +1,32 @@
+diff --git a/content/shell/BUILD.gn b/content/shell/BUILD.gn
+index e0921c6326700..7b0967bc03138 100644
+--- a/content/shell/BUILD.gn
++++ b/content/shell/BUILD.gn
+@@ -33,6 +33,9 @@ if (is_android) {
+ } else if (is_ios) {
+   import("//build/config/ios/config.gni")
+ }
++if (is_cobalt) {
++  import("//starboard/build/buildflags.gni")
++}
+ 
+ # TODO(crbug.com/1336055, spang): Investigate using shell_views with cast builds as
+ # true.
+@@ -439,6 +442,17 @@ static_library("content_shell_lib") {
+   if (use_ozone) {
+     deps += [ "//ui/ozone" ]
+   }
++
++  if (is_cobalt && use_starboard_media) {
++    deps += [
++      "//starboard:starboard_group",
++    ]
++    if (is_android) {
++      deps += [
++        "//starboard/android/shared:starboard_platform",
++      ]
++    }
++  }
+ }
+ 
+ grit("content_shell_resources_grit") {

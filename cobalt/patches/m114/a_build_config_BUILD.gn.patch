@@ -1,0 +1,13 @@
+diff --git a/build/config/BUILD.gn b/build/config/BUILD.gn
+index 749b0855ff2aa..867f729da9b4c 100644
+--- a/build/config/BUILD.gn
++++ b/build/config/BUILD.gn
+@@ -218,7 +218,7 @@ config("default_libs") {
+       "CoreText.framework",
+       "Foundation.framework",
+     ]
+-  } else if (is_linux || is_chromeos) {
++  } else if (is_linux && !is_cobalt_hermetic_build || is_chromeos) {
+     libs = [
+       "dl",
+       "pthread",

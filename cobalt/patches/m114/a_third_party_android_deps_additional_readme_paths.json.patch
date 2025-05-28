@@ -1,0 +1,12 @@
+diff --git a/third_party/android_deps/additional_readme_paths.json b/third_party/android_deps/additional_readme_paths.json
+index 4552af5b6ba0a..0e5e61fc59809 100644
+--- a/third_party/android_deps/additional_readme_paths.json
++++ b/third_party/android_deps/additional_readme_paths.json
+@@ -45,6 +45,7 @@
+     "libs/com_google_android_annotations",
+     "libs/com_google_android_apps_common_testing_accessibility_framework_accessibility_test_framework",
+     "libs/com_google_android_datatransport_transport_api",
++    "libs/com_google_android_gms_play_services_ads_identifier",
+     "libs/com_google_android_gms_play_services_auth",
+     "libs/com_google_android_gms_play_services_auth_api_phone",
+     "libs/com_google_android_gms_play_services_auth_base",

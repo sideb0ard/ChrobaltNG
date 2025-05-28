@@ -1,0 +1,12 @@
+diff --git a/third_party/blink/renderer/core/exported/web_media_player_impl_unittest.cc b/third_party/blink/renderer/core/exported/web_media_player_impl_unittest.cc
+index 78f656464c828..b5bc0f68ace30 100644
+--- a/third_party/blink/renderer/core/exported/web_media_player_impl_unittest.cc
++++ b/third_party/blink/renderer/core/exported/web_media_player_impl_unittest.cc
+@@ -211,6 +211,7 @@ class MockWebMediaPlayerClient : public WebMediaPlayerClient {
+   MOCK_METHOD2(OnFirstFrame, void(base::TimeTicks, size_t));
+   MOCK_METHOD0(OnRequestVideoFrameCallback, void());
+   MOCK_METHOD0(GetTextTrackMetadata, Vector<TextTrackMetadata>());
++  MOCK_METHOD0(GetElementId, int());
+ };
+ 
+ class MockWebMediaPlayerEncryptedMediaClient

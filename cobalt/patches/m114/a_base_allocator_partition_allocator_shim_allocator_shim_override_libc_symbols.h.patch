@@ -1,0 +1,11 @@
+diff --git a/base/allocator/partition_allocator/shim/allocator_shim_override_libc_symbols.h b/base/allocator/partition_allocator/shim/allocator_shim_override_libc_symbols.h
+index bb07170019e52..d8ebe742f74c3 100644
+--- a/base/allocator/partition_allocator/shim/allocator_shim_override_libc_symbols.h
++++ b/base/allocator/partition_allocator/shim/allocator_shim_override_libc_symbols.h
+@@ -89,4 +89,4 @@ SHIM_ALWAYS_EXPORT size_t malloc_usable_size(void* address) __THROW {
+ 
+ }  // extern "C"
+ 
+-#endif  // BASE_ALLOCATOR_PARTITION_ALLOCATOR_SHIM_ALLOCATOR_SHIM_OVERRIDE_LIBC_SYMBOLS_H_
++#endif  // BASE_ALLOCATOR_PARTITION_ALLOCATOR_SHIM_ALLOCATOR_SHIM_OVERRIDE_LIBC_SYMBOLS_H_
+\ No newline at end of file

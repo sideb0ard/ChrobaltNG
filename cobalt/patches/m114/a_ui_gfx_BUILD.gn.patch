@@ -1,0 +1,13 @@
+diff --git a/ui/gfx/BUILD.gn b/ui/gfx/BUILD.gn
+index 34a269ee4d47a..685bfa8b32c00 100644
+--- a/ui/gfx/BUILD.gn
++++ b/ui/gfx/BUILD.gn
+@@ -608,7 +608,7 @@ source_set("memory_buffer_sources") {
+     "//ui/gfx/geometry",
+   ]
+ 
+-  if (is_linux || is_chromeos) {
++  if (is_linux && !is_starboard || is_chromeos) {
+     sources += [
+       "linux/client_native_pixmap_dmabuf.cc",
+       "linux/client_native_pixmap_dmabuf.h",

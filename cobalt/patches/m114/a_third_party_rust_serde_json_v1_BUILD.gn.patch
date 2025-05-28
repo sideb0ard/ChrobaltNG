@@ -1,0 +1,16 @@
+diff --git a/third_party/rust/serde_json/v1/BUILD.gn b/third_party/rust/serde_json/v1/BUILD.gn
+index 9caf5baf07880..8caf322a08ad6 100644
+--- a/third_party/rust/serde_json/v1/BUILD.gn
++++ b/third_party/rust/serde_json/v1/BUILD.gn
+@@ -31,10 +31,7 @@ cargo_crate("lib") {
+     "//third_party/rust/ryu/v1:lib",
+     "//third_party/rust/serde/v1:lib",
+   ]
+-  features = [
+-    "std",
+-    "unbounded_depth",
+-  ]
++  features = [ "std" ]
+   build_root = "crate/build.rs"
+   build_sources = [ "crate/build.rs" ]
+ }

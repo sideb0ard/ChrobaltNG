@@ -1,0 +1,35 @@
+diff --git a/base/functional/unretained_traits.h b/base/functional/unretained_traits.h
+index 6933b0e5f16e7..68b8a0f97eb1d 100644
+--- a/base/functional/unretained_traits.h
++++ b/base/functional/unretained_traits.h
+@@ -32,6 +32,12 @@ struct hb_set_t;
+ struct wl_gpu;
+ struct wl_shm;
+ struct wl_surface;
++#ifdef COBALT_PENDING_CLEAN_UP
++struct SbPlayerPrivate;
++struct SbWindowPrivate;
++struct SbUiNavItemPrivate;
++struct SbDrmSystemPrivate;
++#endif
+ 
+ namespace base::internal {
+ 
+@@ -114,6 +120,17 @@ inline constexpr bool IsIncompleteTypeSafeForUnretained<wl_shm> = true;
+ template <>
+ inline constexpr bool IsIncompleteTypeSafeForUnretained<wl_surface> = true;
+ 
++#ifdef COBALT_PENDING_CLEAN_UP
++template <>
++inline constexpr bool IsIncompleteTypeSafeForUnretained<SbPlayerPrivate> = true;
++template <>
++inline constexpr bool IsIncompleteTypeSafeForUnretained<SbWindowPrivate> = true;
++template <>
++inline constexpr bool IsIncompleteTypeSafeForUnretained<SbUiNavItemPrivate> = true;
++template <>
++inline constexpr bool IsIncompleteTypeSafeForUnretained<SbDrmSystemPrivate> = true;
++#endif
++
+ template <typename T, typename SFINAE = void>
+ struct TypeSupportsUnretained {
+ // Incrementally enforce the requirement to be completely defined. For now,

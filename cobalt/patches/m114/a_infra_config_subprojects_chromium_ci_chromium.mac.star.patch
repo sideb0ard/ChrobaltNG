@@ -1,0 +1,26 @@
+diff --git a/infra/config/subprojects/chromium/ci/chromium.mac.star b/infra/config/subprojects/chromium/ci/chromium.mac.star
+index f3bd209d8290b..0bb03ee3383c4 100644
+--- a/infra/config/subprojects/chromium/ci/chromium.mac.star
++++ b/infra/config/subprojects/chromium/ci/chromium.mac.star
+@@ -62,9 +62,6 @@ ci.builder(
+         gclient_config = builder_config.gclient_config(
+             config = "chromium",
+             apply_configs = [
+-                # This is necessary due to child builders running the
+-                # telemetry_perf_unittests suite.
+-                "chromium_with_telemetry_dependencies",
+                 "use_clang_coverage",
+             ],
+         ),
+@@ -148,11 +145,6 @@ ci.builder(
+     builder_spec = builder_config.builder_spec(
+         gclient_config = builder_config.gclient_config(
+             config = "chromium",
+-            apply_configs = [
+-                # This is necessary due to child builders running the
+-                # telemetry_perf_unittests suite.
+-                "chromium_with_telemetry_dependencies",
+-            ],
+         ),
+         chromium_config = builder_config.chromium_config(
+             config = "chromium",

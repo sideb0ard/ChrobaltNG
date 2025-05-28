@@ -1,0 +1,34 @@
+diff --git a/infra/config/generated/builders/try/chromeos-amd64-generic-rel/properties.json b/infra/config/generated/builders/try/chromeos-amd64-generic-rel/properties.json
+index 438f81470bfcf..6dc5b7585465d 100644
+--- a/infra/config/generated/builders/try/chromeos-amd64-generic-rel/properties.json
++++ b/infra/config/generated/builders/try/chromeos-amd64-generic-rel/properties.json
+@@ -1,8 +1,7 @@
+ {
+   "$build/chromium_orchestrator": {
+     "compilator": "chromeos-amd64-generic-rel-compilator",
+-    "compilator_watcher_git_revision": "e3cad57252d996ab02463019e7f49343d739b885",
+-    "propagate_properties_to_compilator": true
++    "compilator_watcher_git_revision": "e3cad57252d996ab02463019e7f49343d739b885"
+   },
+   "$build/chromium_tests_builder_config": {
+     "builder_config": {
+@@ -37,7 +36,6 @@
+               "legacy_gclient_config": {
+                 "apply_configs": [
+                   "chromeos",
+-                  "chromium_with_telemetry_dependencies",
+                   "checkout_lacros_sdk"
+                 ],
+                 "config": "chromium"
+@@ -55,11 +53,6 @@
+       ]
+     }
+   },
+-  "$build/reclient": {
+-    "instance": "rbe-chromium-untrusted",
+-    "jobs": 300,
+-    "metrics_project": "chromium-reclient-metrics"
+-  },
+   "$recipe_engine/resultdb/test_presentation": {
+     "column_keys": [],
+     "grouping_keys": [

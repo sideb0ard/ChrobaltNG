@@ -1,0 +1,15 @@
+diff --git a/third_party/abseil-cpp/absl/base/internal/direct_mmap.h b/third_party/abseil-cpp/absl/base/internal/direct_mmap.h
+index 815b8d23ba35f..ee448977c2d8d 100644
+--- a/third_party/abseil-cpp/absl/base/internal/direct_mmap.h
++++ b/third_party/abseil-cpp/absl/base/internal/direct_mmap.h
+@@ -24,8 +24,8 @@
+ 
+ #include <sys/mman.h>
+ 
+-#ifdef __linux__
+-
++#include "build/build_config.h"
++#if defined(__linux__) && !BUILDFLAG(IS_COBALT_HERMETIC_BUILD)
+ #include <sys/types.h>
+ #ifdef __BIONIC__
+ #include <sys/syscall.h>

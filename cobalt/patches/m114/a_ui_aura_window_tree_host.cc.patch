@@ -1,0 +1,14 @@
+diff --git a/ui/aura/window_tree_host.cc b/ui/aura/window_tree_host.cc
+index 2db965c93130b..4fecdcb0119d3 100644
+--- a/ui/aura/window_tree_host.cc
++++ b/ui/aura/window_tree_host.cc
+@@ -683,7 +683,9 @@ void WindowTreeHost::OnHostResizedInPixels(
+   // from GetBoundsInPixels() on Windows to contain extra space for window
+   // transition animations and should be used to set compositor size instead of
+   // GetBoundsInPixels() in such case.
++#if !BUILDFLAG(IS_STARBOARD)
+   UpdateCompositorScaleAndSize(new_size_in_pixels);
++#endif
+ 
+   for (WindowTreeHostObserver& observer : observers_)
+     observer.OnHostResized(this);

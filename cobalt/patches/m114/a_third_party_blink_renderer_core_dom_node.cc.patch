@@ -1,0 +1,15 @@
+diff --git a/third_party/blink/renderer/core/dom/node.cc b/third_party/blink/renderer/core/dom/node.cc
+index 95b8bcdfebfbc..ad626e7e12028 100644
+--- a/third_party/blink/renderer/core/dom/node.cc
++++ b/third_party/blink/renderer/core/dom/node.cc
+@@ -336,6 +336,10 @@ Node::~Node() {
+   InstanceCounters::DecrementCounter(InstanceCounters::kNodeCounter);
+ }
+ 
++DOMNodeId Node::GetDomNodeId() {
++  return DOMNodeIds::IdForNode(this);
++}
++
+ NodeRareData& Node::CreateRareData() {
+   if (IsElementNode()) {
+     data_ = MakeGarbageCollected<ElementRareDataVector>(data_);

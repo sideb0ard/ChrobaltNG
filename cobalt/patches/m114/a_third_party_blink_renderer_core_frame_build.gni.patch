@@ -1,0 +1,18 @@
+diff --git a/third_party/blink/renderer/core/frame/build.gni b/third_party/blink/renderer/core/frame/build.gni
+index 61558b6f53ae9..93d72acec5423 100644
+--- a/third_party/blink/renderer/core/frame/build.gni
++++ b/third_party/blink/renderer/core/frame/build.gni
+@@ -243,6 +243,13 @@ blink_core_sources_frame = [
+   "window_or_worker_global_scope.h",
+ ]
+ 
++if (is_cobalt) {
++  blink_core_sources_frame += [
++    "csp/local_ip.cc",
++    "csp/local_ip.h",
++  ]
++}
++
+ # WindowControlsOverlay
+ # This uses target_os rather than current_os (which is what is_android is set
+ # from) for the case of generating the v8 context snapshot for android. When

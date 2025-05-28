@@ -1,0 +1,13 @@
+diff --git a/components/metrics/BUILD.gn b/components/metrics/BUILD.gn
+index b6f32fab07ea8..d8595c0dfba08 100644
+--- a/components/metrics/BUILD.gn
++++ b/components/metrics/BUILD.gn
+@@ -230,7 +230,7 @@ if (!is_cronet_build || is_ios) {
+       ]
+     }
+ 
+-    if (is_linux || is_chromeos) {
++    if (is_linux && !is_starboard || is_chromeos) {
+       sources += [
+         "drive_metrics_provider_linux.cc",
+         "psi_memory_parser.h",

@@ -1,0 +1,14 @@
+diff --git a/third_party/blink/renderer/core/frame/csp/csp_directive_list.cc b/third_party/blink/renderer/core/frame/csp/csp_directive_list.cc
+index 2610192c9716c..608157e6775f4 100644
+--- a/third_party/blink/renderer/core/frame/csp/csp_directive_list.cc
++++ b/third_party/blink/renderer/core/frame/csp/csp_directive_list.cc
+@@ -569,6 +569,9 @@ bool CheckSourceAndReportViolation(
+     case CSPDirectiveName::TreatAsPublicAddress:
+     case CSPDirectiveName::TrustedTypes:
+     case CSPDirectiveName::UpgradeInsecureRequests:
++#if BUILDFLAG(IS_COBALT)
++    case CSPDirectiveName::CobaltLocationSrc:
++#endif
+     case CSPDirectiveName::Unknown:
+       NOTREACHED();
+       break;

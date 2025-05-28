@@ -1,0 +1,17 @@
+diff --git a/media/base/demuxer_stream.cc b/media/base/demuxer_stream.cc
+index 7addad4152a8b..0d600500a7b9b 100644
+--- a/media/base/demuxer_stream.cc
++++ b/media/base/demuxer_stream.cc
+@@ -47,6 +47,12 @@ const char* DemuxerStream::GetStatusName(Status status) {
+ 
+ DemuxerStream::~DemuxerStream() = default;
+ 
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++std::string DemuxerStream::mime_type() const {
++  return "";
++}
++#endif  // BUILDFLAG(USE_STARBOARD_MEDIA)
++
+ // Most DemuxerStream implementations don't specify liveness. Returns unknown
+ // liveness by default.
+ StreamLiveness DemuxerStream::liveness() const {

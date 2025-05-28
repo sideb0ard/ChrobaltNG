@@ -1,0 +1,19 @@
+diff --git a/content/browser/web_contents/web_contents_android.cc b/content/browser/web_contents/web_contents_android.cc
+index 578730cc2ad1b..7338f8061e6d3 100644
+--- a/content/browser/web_contents/web_contents_android.cc
++++ b/content/browser/web_contents/web_contents_android.cc
+@@ -478,6 +478,14 @@ void WebContentsAndroid::OnShow(JNIEnv* env) {
+   web_contents_->WasShown();
+ }
+ 
++void WebContentsAndroid::OnFreeze(JNIEnv* env) {
++  web_contents_->SetPageFrozen(true);
++}
++
++void WebContentsAndroid::OnResume(JNIEnv* env) {
++  web_contents_->SetPageFrozen(false);
++}
++
+ void WebContentsAndroid::SetImportance(JNIEnv* env,
+                                        jint primary_main_frame_importance) {
+   web_contents_->SetPrimaryMainFrameImportance(

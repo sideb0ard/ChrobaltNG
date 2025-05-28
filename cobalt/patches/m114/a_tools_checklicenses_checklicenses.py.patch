@@ -1,0 +1,14 @@
+diff --git a/tools/checklicenses/checklicenses.py b/tools/checklicenses/checklicenses.py
+index adf5ea5a5226a..ec1d02274f783 100755
+--- a/tools/checklicenses/checklicenses.py
++++ b/tools/checklicenses/checklicenses.py
+@@ -531,9 +531,6 @@ PATH_SPECIFIC_ALLOWLISTED_LICENSES = {
+     'tools/python/google/__init__.py': [
+         'UNKNOWN',
+     ],
+-    'tools/stats_viewer/Properties/AssemblyInfo.cs': [
+-        'UNKNOWN',
+-    ],
+     'tools/symsrc/pefile.py': [
+         'UNKNOWN',
+     ],

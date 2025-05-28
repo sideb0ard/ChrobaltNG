@@ -1,0 +1,24 @@
+diff --git a/third_party/blink/renderer/core/html/media/html_video_element.cc b/third_party/blink/renderer/core/html/media/html_video_element.cc
+index dda52901f51c9..6c374eacd6184 100644
+--- a/third_party/blink/renderer/core/html/media/html_video_element.cc
++++ b/third_party/blink/renderer/core/html/media/html_video_element.cc
+@@ -731,6 +731,19 @@ void HTMLVideoElement::AddedEventListener(
+   HTMLMediaElement::AddedEventListener(event_type, registered_listener);
+ }
+ 
++#if BUILDFLAG(USE_STARBOARD_MEDIA)
++void HTMLVideoElement::setMaxVideoCapabilities(const String& max_video_capabilities, ExceptionState& exception_state){
++  String srcAttr = FastGetAttribute(html_names::kSrcAttr);
++  if (srcAttr != g_null_atom && srcAttr.length() > 0) {
++    exception_state.ThrowDOMException(
++      DOMExceptionCode::kInvalidStateError,
++      "Cannot set maximum capabilities after src is defined.");
++    return;
++  }
++  max_video_capabilities_ = max_video_capabilities.Ascii();
++}
++#endif // BUILDFLAG(USE_STARBOARD_MEDIA)
++
+ bool HTMLVideoElement::IsRemotingInterstitialVisible() const {
+   return remoting_interstitial_ && remoting_interstitial_->IsVisible();
+ }

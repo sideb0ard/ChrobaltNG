@@ -1,0 +1,19 @@
+diff --git a/base/task/sequence_manager/sequence_manager_impl.cc b/base/task/sequence_manager/sequence_manager_impl.cc
+index e688f876762cb..ffaa5eb9a0ec6 100644
+--- a/base/task/sequence_manager/sequence_manager_impl.cc
++++ b/base/task/sequence_manager/sequence_manager_impl.cc
+@@ -337,6 +337,14 @@ void SequenceManagerImpl::BindToMessagePump(std::unique_ptr<MessagePump> pump) {
+     controller_->AttachToMessagePump();
+   }
+ #endif
++
++  // On Starboard attach to the Starboard loop.
++#if BUILDFLAG(IS_STARBOARD)
++  if (settings_.message_loop_type == MessagePumpType::UI) {
++    controller_->AttachToMessagePump();
++  }
++#endif  // BUILDFLAG(IS_STARBOARD)
++
+ }
+ 
+ void SequenceManagerImpl::BindToCurrentThread() {

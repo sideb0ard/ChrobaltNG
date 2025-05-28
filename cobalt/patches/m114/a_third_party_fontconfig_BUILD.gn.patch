@@ -1,0 +1,13 @@
+diff --git a/third_party/fontconfig/BUILD.gn b/third_party/fontconfig/BUILD.gn
+index 6d89abc7990fc..ff9fa7f3e4508 100644
+--- a/third_party/fontconfig/BUILD.gn
++++ b/third_party/fontconfig/BUILD.gn
+@@ -106,7 +106,7 @@ if (use_bundled_fontconfig) {
+       ]
+     }
+ 
+-    if (!is_win) {
++    if (!is_win && !is_cobalt_hermetic_build) {
+       libs = [ "uuid" ]
+     }
+   }

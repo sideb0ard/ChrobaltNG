@@ -1,0 +1,12 @@
+diff --git a/infra/config/generated/builders/ci/chromeos-amd64-generic-rel/properties.json b/infra/config/generated/builders/ci/chromeos-amd64-generic-rel/properties.json
+index 0e31909051440..54b6f89370f9a 100644
+--- a/infra/config/generated/builders/ci/chromeos-amd64-generic-rel/properties.json
++++ b/infra/config/generated/builders/ci/chromeos-amd64-generic-rel/properties.json
+@@ -32,7 +32,6 @@
+               "legacy_gclient_config": {
+                 "apply_configs": [
+                   "chromeos",
+-                  "chromium_with_telemetry_dependencies",
+                   "checkout_lacros_sdk"
+                 ],
+                 "config": "chromium"

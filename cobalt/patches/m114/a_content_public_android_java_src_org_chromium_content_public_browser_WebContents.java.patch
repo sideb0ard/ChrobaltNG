@@ -1,0 +1,21 @@
+diff --git a/content/public/android/java/src/org/chromium/content_public/browser/WebContents.java b/content/public/android/java/src/org/chromium/content_public/browser/WebContents.java
+index 70a1023e20905..c312d96571dc9 100644
+--- a/content/public/android/java/src/org/chromium/content_public/browser/WebContents.java
++++ b/content/public/android/java/src/org/chromium/content_public/browser/WebContents.java
+@@ -260,6 +260,16 @@ public interface WebContents extends Parcelable {
+      */
+     void onShow();
+ 
++    /**
++     * To be called when freeze event is exepcted.
++     */
++    void onFreeze();
++
++    /**
++     * To be called when resume event is exepcted.
++     */
++    void onResume();
++
+     /**
+      * ChildProcessImportance on Android allows controls of the renderer process bindings
+      * independent of visibility. Note this does not affect importance of subframe processes
