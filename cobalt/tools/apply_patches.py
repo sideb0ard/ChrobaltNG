@@ -6,17 +6,16 @@ import re
 
 def is_file_tracked_by_git(file_path, chromium_src_dir):
     """Checks if a file is tracked by the Git repository."""
+    # Run git ls-files from within the chromium_src_dir
     command = [
         "git",
-        f"--git-dir={os.path.join(chromium_src_dir, '.git')}",
-        f"--work-tree={chromium_src_dir}",
         "ls-files",
         "--error-unmatch", # Suppress errors for non-existent files
-        file_path
+        file_path # This path is relative to chromium_src_dir
     ]
     try:
         # Use check=False to prevent CalledProcessError for untracked files
-        subprocess.run(command, capture_output=True, text=True, check=False)
+        subprocess.run(command, capture_output=True, text=True, check=False, cwd=chromium_src_dir)
         return True
     except subprocess.CalledProcessError:
         return False # File not tracked
@@ -62,6 +61,7 @@ def apply_patch(patch_file_path, chromium_src_dir):
     with open(patch_file_path, 'r', encoding='utf-8', errors='ignore') as f:
         for line in f:
             if line.startswith('+++ b/'):
+                # Strip the "b/" prefix and any trailing whitespace
                 target_file_relative_path = line[len('+++ b/'):].strip()
                 break
     if not target_file_relative_path:
@@ -72,17 +72,19 @@ def apply_patch(patch_file_path, chromium_src_dir):
 
     command = [
         "git",
-        f"--git-dir={os.path.join(chromium_src_dir, '.git')}",
-        f"--work-tree={chromium_src_dir}",
         "apply",
-        "-p1", # <--- ADDED THIS LINE: Strip one leading directory component from patch paths
+        # Removed -p1 and --git-dir/--work-tree.
+        # git apply will infer these from the 'cwd' argument.
         "--verbose",
         "--reject",
+        # Patch file path needs to be absolute, as cwd will change.
         patch_file_path,
     ]
 
     try:
+        # CRITICAL CHANGE: Run the command from within the chromium_src_dir
         process = subprocess.run(command,
+                                 cwd=chromium_src_dir,
                                  capture_output=True,
                                  text=True,
                                  check=False)
@@ -101,10 +103,8 @@ def apply_patch(patch_file_path, chromium_src_dir):
                 is_new_file_patch = patch_content_lines[0].startswith('--- /dev/null') if patch_content_lines else False
 
                 if is_new_file_patch:
-                    # Note: We need to check if the *stripped* path is tracked
+                    # For comparison, the tracked path is relative to chromium_src_dir
                     tracked_path_for_check = target_file_relative_path
-                    if tracked_path_for_check.startswith('src/'): # If the patch had 'src/' prefix, strip it for git ls-files if needed
-                        tracked_path_for_check = tracked_path_for_check[len('src/'):]
 
                     if is_file_tracked_by_git(tracked_path_for_check, chromium_src_dir):
                         existing_content = get_file_content(target_file_abs_path)
@@ -115,7 +115,7 @@ def apply_patch(patch_file_path, chromium_src_dir):
                             print(f"  SKIPPED: {patch_filename} (file already exists and content matches).")
                             return True, "skipped_identical"
                         else:
-                            print(f"  FAILED: {patch_filename} (file already exists, but content differs or is not new file patch).")
+                            print(f"  FAILED: {patch_filename} (file already exists, but content differs).")
                             print("  Stderr:\n", stderr_output)
                             return False, "failed_content_mismatch"
                     else:
@@ -133,7 +133,7 @@ def apply_patch(patch_file_path, chromium_src_dir):
                 print(stderr_output)
                 print("  Stdout:")
                 print(process.stdout)
-                print(f"  Please check for .rej files in '{chromium_src_dir}' and resolve conflicts.")
+                print(f"  Please check for .rej files in '{chromium_src_dir}'.")
                 return False, "failed_conflict"
 
     except FileNotFoundError:
