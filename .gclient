@@ -2,7 +2,7 @@
 solutions = [
   {
     "name": ".", 
-    "url": "git@github.com:your_username/ChrobaltProject.git",
+    "url": "git@github.com:sideb0ard/ChrobaltNG.git",
     "managed": False,
     "custom_deps": {},
     "custom_vars": {},
