@@ -2,4 +2,4 @@
 # and has its own separate Git repository.
 src/
 out/
-.gclient_entries # gclient generated file
+.gclient_entries

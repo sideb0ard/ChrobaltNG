@@ -2,6 +2,7 @@
 vars = {
     'chromium_git_url': 'https://chromium.googlesource.com',
     'chromium_version_tag': '114.0.5735.358',
+    # 'chromium_version_tag': '138.0.7191.0',
     'chromium_src_dir': 'src',
 }
 
